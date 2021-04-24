@@ -8,7 +8,7 @@
     tools:context=".UserInfo">
 
     <EditText
-        android:id="@+id/RegUser"
+        android:id="@+id/InfoUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.591" />
 
     <EditText
-        android:id="@+id/RegPassword"
+        android:id="@+id/InfoPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.434" />
 
     <EditText
-        android:id="@+id/RegName"
+        android:id="@+id/InfoName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"

@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FixedProject">
-        <activity android:name=".MeetingsPage"></activity>
+        <activity android:name=".CreateMeetings"></activity>
+        <activity android:name=".MeetingsList" />
         <activity android:name=".ClocksPage" />
         <activity android:name=".UserInfo" />
         <activity android:name=".DataSelector" />
-        <activity android:name=".TimeSelector" />
         <activity android:name=".Calendar" />
         <activity android:name=".Timer" />
         <activity android:name=".StopWatch" />

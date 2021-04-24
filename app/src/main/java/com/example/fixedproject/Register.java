@@ -20,7 +20,6 @@ public class Register extends AppCompatActivity {
         name =  findViewById(R.id.RegName);
         User = findViewById(R.id.RegUser);
         Pass = findViewById(R.id.RegPassword);
-
         Reg = findViewById(R.id.ToReg);
 
 

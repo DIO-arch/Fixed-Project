@@ -37,6 +37,9 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Password is Blank",Toast.LENGTH_LONG).show(); }
                 else{
                     //Authenticaion
+                    if (usr.equals("Kyle")){
+                        Toast.makeText(Login.this, "Nice Name Kyle", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
