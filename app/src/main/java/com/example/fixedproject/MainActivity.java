@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent i = new Intent();
         if(view.getId()==R.id.ToLogin)
-            i = new Intent(this, MeetingsList.class); //Login
+            i = new Intent(this, Login.class);
         else if (view.getId()==R.id.ToRegister)
             i = new Intent(this, Register.class);
         startActivity(i);

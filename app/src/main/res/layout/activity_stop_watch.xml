@@ -8,26 +8,29 @@
     android:gravity="center"
     android:layout_gravity="center"
     tools:context=".StopWatch">
+
     <Chronometer
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         />
 
     <Button
         android:id="@+id/start"
+        android:onClick="startChronometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="START" />
 
     <Button
         android:id="@+id/reset"
+        android:onClick="resetChronometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="RESET" />
 
     <Button
         android:id="@+id/pause"
+        android:onClick="pauseChronometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PAUSE" />

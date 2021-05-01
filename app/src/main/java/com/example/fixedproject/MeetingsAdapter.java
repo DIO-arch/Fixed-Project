@@ -11,15 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingsAdapter extends ArrayAdapter<Meetings> {
     private Context ctx;
     private int meetingsResourceId;
-    private List<Meetings> data;
+    private ArrayList<Meetings> data;
 
 
-    public MeetingsAdapter(@NonNull Context context, int resource, @NonNull List<Meetings> objects) {
+    public MeetingsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Meetings> objects) {
         super(context, resource, objects);
         this.ctx=(MeetingsList) context;
         this.data=objects;
@@ -34,15 +35,18 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //return super.getView(position, convertView, parent);
         LayoutInflater li=(LayoutInflater) this.ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v=li.inflate(this.meetingsResourceId,null);
 
+        View v=li.inflate(this.meetingsResourceId,null);
         Meetings m=this.data.get(position);
-        TextView tv1=v.findViewById(R.id.titleId);
-        tv1.setText(m.getTitle());
-        TextView tv2=v.findViewById(R.id.startTime);
-        tv2.setText(m.getSday() + m.getSmonth() + m.getSyear() + '\'' + m.getShour() + m.getSminute());
-        TextView tv3=v.findViewById(R.id.startTime);
-        tv3.setText(m.getEday() + m.getEmonth() + m.getEyear() + '\'' + m.getEhour() + m.getEminute());
+
+        TextView title_tv = v.findViewById(R.id.titleId);
+        TextView start_tv = v.findViewById(R.id.startTime);
+        TextView end_tv = v.findViewById(R.id.endTime);
+
+        title_tv.setText(m.getTitle());
+        start_tv.setText(m.getSday() + m.getSmonth() + m.getSyear() + '\'' + m.getShour() + m.getSminute());
+        end_tv.setText(m.getEday() + m.getEmonth() + m.getEyear() + '\'' + m.getEhour() + m.getEminute());
+
         return v;
     }
 }

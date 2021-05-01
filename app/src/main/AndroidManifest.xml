@@ -14,7 +14,6 @@
         <activity android:name=".ClocksPage" />
         <activity android:name=".UserInfo" />
         <activity android:name=".DataSelector" />
-        <activity android:name=".Calendar" />
         <activity android:name=".Timer" />
         <activity android:name=".StopWatch" />
         <activity android:name=".Register" />

@@ -22,7 +22,7 @@ public class ClocksPage extends AppCompatActivity {
         Intent i = new Intent();
         if(view.getId()==R.id.ToUser) i = new Intent(this, UserInfo.class);
         else if (view.getId()==R.id.ToMeetingsList)
-            i = new Intent(this, MeetingsList.class);
+            i = new Intent(this, DataSelector.class);
         else if (view.getId()==R.id.ToStopWatch)
             i = new Intent(this, StopWatch.class);
         else if (view.getId()==R.id.ToTimer)

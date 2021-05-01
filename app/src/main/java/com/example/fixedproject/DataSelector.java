@@ -19,33 +19,52 @@ import java.util.Calendar;
 public class DataSelector extends AppCompatActivity {
     private static final String TAG = "SelectSchedule";
 
-    Button dateButton, timeButton;
-    TextView dateTextView, timeTextView;
+    Button sdateButton, stimeButton, edatebutton, etimebutton;
+    TextView sdateTextView, stimeTextView, edateTextView, etimeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_selector);
 
-        dateButton = findViewById(R.id.dateButton);
-        timeButton = findViewById(R.id.timeButton);
-        dateTextView = findViewById(R.id.dateTextView);
-        timeTextView = findViewById(R.id.timeTextView);
+        sdateButton = findViewById(R.id.start_date_btn);
+        stimeButton = findViewById(R.id.start_time_btn);
+        sdateTextView = findViewById(R.id.start_date_TV);
+        stimeTextView = findViewById(R.id.start_time_TV);
+        edatebutton = findViewById(R.id.end_date_btn);
+        etimebutton = findViewById(R.id.end_time_btn);
+        edateTextView = findViewById(R.id.end_date_TV);
+        etimeTextView = findViewById(R.id.end_time_TV);
 
-        dateButton.setOnClickListener(new View.OnClickListener() {
+
+        sdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleDateButton();
+                handleDatesButtons(view);
             }
         });
-        timeButton.setOnClickListener(new View.OnClickListener() {
+
+        edatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleTimeButton();
+                handleDatesButtons(view);
             }
+        });
+
+        stimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleTimeButtons(view);
+            }
+        });
+        
+        etimebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { handleTimeButtons(view); }
         });
     }
-    private void handleDateButton() {
+
+    private void handleDatesButtons(View v){
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         int YEAR = calendar.get(java.util.Calendar.YEAR);
         int MONTH = calendar.get(java.util.Calendar.MONTH);
@@ -61,14 +80,16 @@ public class DataSelector extends AppCompatActivity {
                 calendar1.set(java.util.Calendar.DATE, date);
                 String dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString();
 
-                dateTextView.setText(dateText);
+                if(v.getId() == R.id.start_date_btn) sdateTextView.setText(dateText); //dateTextView
+                else if(v.getId() == R.id.end_date_btn) edateTextView.setText(dateText);
+                //else throw
             }
         }, YEAR, MONTH, DATE);
 
         datePickerDialog.show();
     }
 
-    private void handleTimeButton() {
+    private void handleTimeButtons(View v) {
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         int HOUR = calendar.get(java.util.Calendar.HOUR);
         int MINUTE = calendar.get(java.util.Calendar.MINUTE);
@@ -82,7 +103,9 @@ public class DataSelector extends AppCompatActivity {
                 calendar1.set(java.util.Calendar.HOUR, hour);
                 calendar1.set(Calendar.MINUTE, minute);
                 String dateText = DateFormat.format("h:mm a", calendar1).toString();
-                timeTextView.setText(dateText);
+
+                if(v.getId()==R.id.start_time_btn) stimeTextView.setText(dateText);
+                else if(v.getId()==R.id.end_time_btn) etimeTextView.setText(dateText);
             }
         }, HOUR, MINUTE, is24HourFormat);
         timePickerDialog.show();

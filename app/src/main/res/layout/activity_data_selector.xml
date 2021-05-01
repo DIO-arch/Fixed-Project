@@ -6,56 +6,112 @@
     android:layout_height="match_parent"
     tools:context=".DataSelector">
 
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:text="Selected Date"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toTopOf="@+id/timeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+    <Button
+        android:id="@+id/start_time_btn"
+        android:layout_width="97dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="228dp"
+        android:text="START TIME"
+        app:layout_constraintEnd_toStartOf="@+id/end_time_btn"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/dateButton"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/end_time_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="get date"
-        app:layout_constraintBottom_toTopOf="@+id/dateTextView"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="80dp"
+        android:text="END TIME"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/start_time_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="324dp"
+        android:text="START TIME"
+        app:layout_constraintEnd_toStartOf="@+id/end_time_TV"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/end_time_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="112dp"
+        android:text="END TIME"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/end_time_btn" />
+
+    <Button
+        android:id="@+id/start_date_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="80dp"
+        android:text="START DATE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_time_TV" />
+
+    <Button
+        android:id="@+id/end_date_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="END DATE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintStart_toEndOf="@+id/start_date_btn"
+        app:layout_constraintTop_toBottomOf="@+id/end_time_TV" />
+
+    <TextView
+        android:id="@+id/start_date_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="60dp"
+        android:text="START DATE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_date_btn" />
+
+    <TextView
+        android:id="@+id/end_date_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="END DATE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/start_date_TV"
+        app:layout_constraintTop_toBottomOf="@+id/end_date_btn" />
+
+    <EditText
+        android:id="@+id/meeting_title"
+        android:layout_width="0dp"
+        android:layout_height="37dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/meeting_routine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_bias="0.076" />
 
     <Button
-        android:id="@+id/timeButton"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/meeting_routine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="get time"
-        app:layout_constraintBottom_toTopOf="@+id/timeTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
-
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Selected Time"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_marginTop="28dp"
+        android:text="ROUTINE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/end_date_TV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
