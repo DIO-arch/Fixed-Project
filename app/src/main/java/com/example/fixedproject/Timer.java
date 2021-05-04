@@ -2,6 +2,7 @@ package com.example.fixedproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -156,7 +157,7 @@ public class Timer extends AppCompatActivity {
         mTimeLeftInMillis = prefs.getLong("millisLeft", mStartTimeInMillis);
         mTimerRunning = prefs.getBoolean("timerRunning", false);
         updateCountDownText();
-        updateWatchInterface();
+        //updateWatchInterface();
         if (mTimerRunning) {
             mEndTime = prefs.getLong("endTime", 0);
             mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
@@ -167,5 +168,13 @@ public class Timer extends AppCompatActivity {
                 updateWatchInterface();
             } else startTimer();
         }
+    }
+    public void movingAround(View view) {
+        Intent i = new Intent();
+        if(view.getId()==R.id.TimerToCP)
+            i = new Intent(this, ClocksPage.class);
+        else if (view.getId()==R.id.TimerToStopWatch)
+            i = new Intent(this, StopWatch.class);
+        startActivity(i);
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.widget.AnalogClock;
 import android.widget.DigitalClock;
@@ -27,6 +28,8 @@ public class ClocksPage extends AppCompatActivity {
             i = new Intent(this, StopWatch.class);
         else if (view.getId()==R.id.ToTimer)
             i = new Intent(this, Timer.class);
+        else if (view.getId()==R.id.ClocksToDisplay)
+            i = new Intent(this, MeetingsList.class);
         startActivity(i);
     }
 }

@@ -2,6 +2,7 @@ package com.example.fixedproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -18,18 +19,21 @@ public class StopWatch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_watch);
 
-        chronometer = findViewById(R.id.chronometer);
-        chronometer.setFormat("Time: %s");
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
-                    chronometer.setBase(SystemClock.elapsedRealtime());
-                    Toast.makeText(StopWatch.this, "Bing!", Toast.LENGTH_SHORT).show();
+        chronometer = findViewById(R.id.stopper);
+        if (chronometer != null) {
+            chronometer.setFormat("Time: %s");
+            chronometer.setBase(SystemClock.elapsedRealtime());
+            chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                @Override
+                public void onChronometerTick(Chronometer chronometer) {
+                    if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
+                        chronometer.setBase(SystemClock.elapsedRealtime());
+                        Toast.makeText(StopWatch.this, "Bing!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
     public void startChronometer(View v) {
         if (!running) {
@@ -48,5 +52,13 @@ public class StopWatch extends AppCompatActivity {
     public void resetChronometer(View v) {
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
+    }
+    public void onClick(View view) {
+        Intent i = new Intent();
+        if(view.getId()==R.id.ToClocksPage)
+            i = new Intent(this, ClocksPage.class);
+        else if(view.getId()==R.id.ToTimer)
+            i = new Intent(this, Timer.class);
+        startActivity(i);
     }
 }

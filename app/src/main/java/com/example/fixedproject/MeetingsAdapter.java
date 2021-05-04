@@ -22,8 +22,8 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
 
     public MeetingsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Meetings> objects) {
         super(context, resource, objects);
-        this.ctx=(MeetingsList) context;
-        this.data=objects;
+        this.ctx= context;
+        this.data = objects;
         this.meetingsResourceId=resource;
     }
     public int getCount(){
@@ -35,9 +35,12 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //return super.getView(position, convertView, parent);
         LayoutInflater li=(LayoutInflater) this.ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = convertView;
+        if (v == null) {
+            v = li.inflate(this.meetingsResourceId, parent);
+        }
 
-        View v=li.inflate(this.meetingsResourceId,null);
-        Meetings m=this.data.get(position);
+        Meetings m = this.data.get(position);
 
         TextView title_tv = v.findViewById(R.id.titleId);
         TextView start_tv = v.findViewById(R.id.startTime);

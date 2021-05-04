@@ -12,21 +12,21 @@ public class Meetings {
     private int eyear;
     private int emonth;
     private int eday;
-    private String routine;
 
-    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday, String routine){
-        this.title=title;
-        this.sminute=sminute;
-        this.shour=shour;
-        this.syear=syear;
-        this.smonth=smonth;
-        this.sday=sday;
-        this.eminute=eminute;
-        this.ehour=ehour;
-        this.eyear=eyear;
-        this.emonth=emonth;
-        this.eday=eday;
-        this.routine=routine;
+
+    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday){
+        this.title = title;
+        this.sminute = sminute;
+        this.shour = shour;
+        this.syear = syear;
+        this.smonth = smonth;
+        this.sday = sday;
+        this.eminute = eminute;
+        this.ehour = ehour;
+        this.eyear = eyear;
+        this.emonth = emonth;
+        this.eday = eday;
+
     }
     public String getTitle(){
         return title;
@@ -52,9 +52,7 @@ public class Meetings {
     public void setSyear(int syear){
         this.syear=syear;
     }
-    public int getSmonth(){
-        return smonth;
-    }
+    public int getSmonth(){ return smonth; }
     public void setSmonth(int smonth){
         this.smonth=smonth;
     }
@@ -91,15 +89,7 @@ public class Meetings {
     public int getEday(){
         return eday;
     }
-    public void setEday(int eday){
-        this.eday=eday;
-    }
-    public String getRoutine(){
-        return routine;
-    }
-    public void setRoutine(String routine){
-        this.routine=routine;
-    }
+    public void setEday(int eday){ this.eday=eday; }
 
     @Override
     public String toString(){
