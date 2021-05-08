@@ -27,8 +27,8 @@ public class MeetingsList extends AppCompatActivity {
         listView1.setAdapter(ma);
     }
     public void getMeetingsData(){
-        aryMeetings.add(new Meetings("wedding",35,13,2021,5,7,59,16,2021,12,4));
-        aryMeetings.add(new Meetings("morning breakfast",25,8,2001,12,12,13,13,2222,11,24));
+        //aryMeetings.add(new Meetings("wedding",35,13,2021,5,7,59,16,2021,12,4));
+        //aryMeetings.add(new Meetings("morning breakfast",25,8,2001,12,12,13,13,2222,11,24));
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.fixedproject;
 
 public class Meetings {
     private String title; //s=start e=end
+    private int id;
+    private int userid;
     private int sminute;
     private int shour;
     private int syear;
@@ -12,9 +14,10 @@ public class Meetings {
     private int eyear;
     private int emonth;
     private int eday;
+    private int typeid;
 
 
-    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday){
+    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday,int id,int userid, int typeid){
         this.title = title;
         this.sminute = sminute;
         this.shour = shour;
@@ -26,7 +29,9 @@ public class Meetings {
         this.eyear = eyear;
         this.emonth = emonth;
         this.eday = eday;
-
+        this.id = id;
+        this.userid = userid;
+        this.typeid = typeid;
     }
     public String getTitle(){
         return title;
@@ -90,6 +95,16 @@ public class Meetings {
         return eday;
     }
     public void setEday(int eday){ this.eday=eday; }
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){ this.id=id; }
+    public int getUserid(){
+        return userid;
+    }
+    public void setUserid(int userid){ this.userid=userid; }
+    public int getTypeid(){ return   typeid; }
+    public void setTypeid(int typeid){ this.typeid = typeid; }
 
     @Override
     public String toString(){

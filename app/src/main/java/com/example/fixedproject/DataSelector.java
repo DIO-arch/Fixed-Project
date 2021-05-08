@@ -2,17 +2,24 @@ package com.example.fixedproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -109,5 +116,31 @@ public class DataSelector extends AppCompatActivity {
             }
         }, HOUR, MINUTE, is24HourFormat);
         timePickerDialog.show();
+    }
+    public void onClick(View view) {
+        Intent i = new Intent();
+        if(view.getId()==R.id.Todisplay)
+            i = new Intent(this, MeetingsList.class);
+        else if (view.getId()==R.id.ToClocksPage2)
+            i = new Intent(this, ClocksPage.class);
+        startActivity(i);
+    }
+    public void btnClick(View view)
+    {
+        final String[] types = {"leisure", "work", "private", "other"};
+
+        ListAdapter aryListAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,types);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("title");
+
+        builder.setAdapter(aryListAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int type) {
+                        Toast.makeText(DataSelector.this, types[type],Toast.LENGTH_LONG).show();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+        dialog.getListView().setBackgroundColor(Color.GRAY);
     }
 }

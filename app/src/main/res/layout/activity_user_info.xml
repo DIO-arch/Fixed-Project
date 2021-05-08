@@ -53,10 +53,11 @@
         android:id="@+id/ResetData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="276dp"
         android:text="RESET"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.264"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RegPassword"
         app:layout_constraintVertical_bias="0.197" />
@@ -65,10 +66,11 @@
         android:id="@+id/SaveData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="276dp"
         android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintHorizontal_bias="0.743"
         app:layout_constraintStart_toEndOf="@+id/ResetData"
         app:layout_constraintTop_toBottomOf="@+id/RegPassword"
         app:layout_constraintVertical_bias="0.197" />
@@ -77,10 +79,23 @@
         android:id="@+id/UserToClocks"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
         android:text="RETURN TO CLOCKS PAGE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RegPassword" />
+
+    <Button
+        android:id="@+id/deleteData"
+        android:layout_width="90dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="144dp"
+        android:text="delete"
+        app:layout_constraintBottom_toTopOf="@+id/UserToClocks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
