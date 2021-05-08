@@ -2,6 +2,7 @@ package com.example.fixedproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -36,4 +37,11 @@ public class Dal extends SQLiteOpenHelper{
         if(result == -1) return false;
         return true;
     }
+    public Boolean checkUsernames(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from users where username = ?", new String[] {username});
+        if(cursor.getCount() > 0) return true;
+        return false;
+    } //can be modified to a password and name as well just add them in the obvious places
+    
 }

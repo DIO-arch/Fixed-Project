@@ -31,7 +31,7 @@ public class StopWatch extends AppCompatActivity {
                         Toast.makeText(StopWatch.this, "Bing!", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });//does bing every 10 seconds pass and restarts
         }
 
     }

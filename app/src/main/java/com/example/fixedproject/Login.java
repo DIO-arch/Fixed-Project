@@ -2,6 +2,7 @@ package com.example.fixedproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
     EditText user,pass;
     Button login;
+    Dal db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,6 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Password is Blank",Toast.LENGTH_LONG).show(); }
                 else{
                     //Authenticaion
-
                 }
             }
         });
