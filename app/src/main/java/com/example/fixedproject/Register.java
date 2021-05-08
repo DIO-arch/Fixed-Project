@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class Register extends AppCompatActivity {
     EditText name,User,Pass;
     Button Reg;
+    Dal db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class Register extends AppCompatActivity {
         User = findViewById(R.id.RegUser);
         Pass = findViewById(R.id.RegPassword);
         Reg = findViewById(R.id.ToReg);
+        db = new Dal(this);
 
 
         Reg.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +34,7 @@ public class Register extends AppCompatActivity {
                 un = User.getText().toString();
                 pa = Pass.getText().toString();
 
+                Intent i = new Intent(getApplicationContext(), Login.class);
 
                 if (na.equals("")) {
                     Toast.makeText(Register.this, "Name is Blank", Toast.LENGTH_LONG).show();
@@ -41,6 +44,18 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Password is Blank", Toast.LENGTH_LONG).show();
                 } else {
                     //Authenticaion
+                    Boolean checkuser = db.checkUsernames(un);
+                    if(checkuser == true) Toast.makeText(Register.this, "Username already exists", Toast.LENGTH_LONG).show();
+                    else {
+                        Boolean checkInsert = db.insertData(na, un, pa);
+                        if(checkInsert == true) {
+                            Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                            i = new Intent(getApplicationContext(), Login.class);
+                            startActivity(i);
+                        }
+                        else
+                            Toast.makeText(Register.this, "Failed to Register", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

@@ -24,6 +24,7 @@ public class Login extends AppCompatActivity {
         pass = findViewById(R.id.edPassword);
 
         login = findViewById(R.id.Login);
+        db = new Dal(this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +40,12 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Password is Blank",Toast.LENGTH_LONG).show(); }
                 else{
                     //Authenticaion
+                    Boolean checkUp = db.checkUps(usr, pas);
+                    if(checkUp == true) {
+                        Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getApplicationContext(), ClocksPage.class);
+                        startActivity(i);
+                    } else Toast.makeText(Login.this, "Failed to Login", Toast.LENGTH_LONG).show();
                 }
             }
         });
