@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-public class Dal extends SQLiteOpenHelper {
+public class Dal extends SQLiteOpenHelper { //for users
 
     public static final String dbname = "time_management.db";
 
@@ -51,5 +51,10 @@ public class Dal extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("Select * from users where username = ? and password = ?", new String[]{username, password});
         if (cursor.getCount() > 0) return true;
         return false;
+    }
+    public String getName(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //String name =
+        return "name";
     }
 }
