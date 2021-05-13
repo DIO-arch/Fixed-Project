@@ -54,7 +54,9 @@ public class Dal extends SQLiteOpenHelper { //for users
     }
     public String getName(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        //String name =
+        //Cursor cursor = db.rawQuery("Select * from users where _id = ?", );
+        //still needs work
+        String name;
         return "name";
     }
 }
