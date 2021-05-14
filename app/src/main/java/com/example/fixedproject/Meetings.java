@@ -2,8 +2,9 @@ package com.example.fixedproject;
 
 public class Meetings {
     private String title; //s=start e=end
-    private int id;
-    private int userid;
+    private long id;
+    private long userid;
+    private long typeid;
     private int sminute;
     private int shour;
     private int syear;
@@ -14,10 +15,8 @@ public class Meetings {
     private int eyear;
     private int emonth;
     private int eday;
-    private int typeid;
 
-
-    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday,int id,int userid, int typeid){
+    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday,long id,long userid, long typeid){
         this.title = title;
         this.sminute = sminute;
         this.shour = shour;
@@ -33,12 +32,14 @@ public class Meetings {
         this.userid = userid;
         this.typeid = typeid;
     }
+    //title
     public String getTitle(){
         return title;
     }
     public void setTitle(String title){
         this.title=title;
     }
+    //start times
     public int getSminute(){
         return sminute;
     }
@@ -67,6 +68,7 @@ public class Meetings {
     public void setSday(int sday){
         this.sday=sday;
     }
+    //end times
     public int getEminute(){
         return eminute;
     }
@@ -95,16 +97,17 @@ public class Meetings {
         return eday;
     }
     public void setEday(int eday){ this.eday=eday; }
-    public int getId(){
+    //ids
+    public long getId(){
         return id;
     }
-    public void setId(int id){ this.id=id; }
-    public int getUserid(){
+    public void setId(long id){ this.id=id; }
+    public long getUserid(){
         return userid;
     }
-    public void setUserid(int userid){ this.userid=userid; }
-    public int getTypeid(){ return   typeid; }
-    public void setTypeid(int typeid){ this.typeid = typeid; }
+    public void setUserid(long userid){ this.userid=userid; }
+    public long getTypeid(){ return   typeid; }
+    public void setTypeid(long typeid){ this.typeid = typeid; }
 
     @Override
     public String toString(){

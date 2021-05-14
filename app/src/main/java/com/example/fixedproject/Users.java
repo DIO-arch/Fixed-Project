@@ -1,12 +1,12 @@
 package com.example.fixedproject;
 
 public class Users {
-    private int id;
+    private long id;
     private String name;
     private String username;
     private String password;
 
-    public Users(int id, String name, String username, String password) {
+    public Users(long id, String name, String username, String password) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -37,11 +37,11 @@ public class Users {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

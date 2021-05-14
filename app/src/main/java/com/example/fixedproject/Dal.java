@@ -59,4 +59,10 @@ public class Dal extends SQLiteOpenHelper { //for users
         String name;
         return "name";
     }
+    // closing database
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
 }
