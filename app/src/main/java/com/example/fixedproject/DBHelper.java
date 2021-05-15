@@ -12,14 +12,15 @@ public class DBHelper extends SQLiteAssetHelper {
         super(context, "time_management.db", null, 1);
     }
 
-    public void insertData(int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
+    public void insertData(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
         SQLiteDatabase db = getWritableDatabase();
-        String sql_insert = "INSERT INTO EXP (, ) values(?,?)";
-        SQLiteStatement statement = db.compileStatement(sql_insert);
+        //String sql_insert = "INSERT INTO EXP (title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id) values(?,?)";
+        //SQLiteStatement statement = db.compileStatement(sql_insert);
 
-        statement.bindString(1, );
-        statement.bindString(2, );
-        statement.execute();
+        //statement.bindString(1, title);
+        //statement.bindString(2, smin);
+
+        //statement.execute();
     }
     // closing database
     public void closeDB() {
