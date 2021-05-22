@@ -81,17 +81,33 @@ public class Dal extends SQLiteOpenHelper { //for users
         //db2.deleteAllUserMeetings(_id);
         db.rawQuery("Delete From users where _id = ?", null);
     }
-    public void updateUser(long _id, Users user) {
+    public Boolean updateUser(long _id, Users user) {
         SQLiteDatabase db = this.getWritableDatabase();
+        Boolean b1 = updateName(_id, user.getName());
+        Boolean b2 = updateUserName(_id, user.getUsername());
+        Boolean b3 = updatePassword(_id, user.getPassword());
+        if (b1) //want to add &&
+            if (b2)
+                if (b3)
+                    return true;
+                return false;
     }
-    public void updateName(long _id, String name) {
+    public Boolean updateName(long _id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("Update name From users where _id = ? Set name = ?", null);
+        Cursor cursor = db.rawQuery("Update users set name = ? where _id = ?", null);
+        if (cursor.getCount() > 0) return true;
+        return false;
     }
-    public void updateUserName(long _id, String username) {
+    public Boolean updateUserName(long _id, String username) {
         SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Update users set username = ? where _id = ?", null);
+        if (cursor.getCount() > 0) return true;
+        return false;
     }
-    public void updatePassword(long _id, String password){
+    public Boolean updatePassword(long _id, String password){
         SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Update users set password = ? where _id = ?", null);
+        if (cursor.getCount() > 0) return true;
+        return false;
     }
 }
