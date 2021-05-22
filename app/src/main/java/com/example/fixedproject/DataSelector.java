@@ -28,7 +28,7 @@ public class DataSelector extends AppCompatActivity {
 
     Button sdateButton, stimeButton, edatebutton, etimebutton;
     TextView sdateTextView, stimeTextView, edateTextView, etimeTextView;
-
+    Type type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

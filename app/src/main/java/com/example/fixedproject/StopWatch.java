@@ -23,17 +23,7 @@ public class StopWatch extends AppCompatActivity {
         if (chronometer != null) {
             chronometer.setFormat("Time: %s");
             chronometer.setBase(SystemClock.elapsedRealtime());
-            chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                @Override
-                public void onChronometerTick(Chronometer chronometer) {
-                    if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
-                        chronometer.setBase(SystemClock.elapsedRealtime());
-                        Toast.makeText(StopWatch.this, "Bing!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });//does bing every 10 seconds pass and restarts
         }
-
     }
     public void startChronometer(View v) {
         if (!running) {

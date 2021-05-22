@@ -14,6 +14,7 @@ public class Login extends AppCompatActivity {
     EditText user,pass;
     Button login;
     Dal db;
+    Users users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +32,16 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String usr,pas;
 
-                usr = user.getText().toString();
-                pas = pass.getText().toString();
+                users.setUsername(user.getText().toString());
+                users.setPassword(pass.getText().toString());
 
-                if (usr.equals("")){
+                if (users.getUsername().equals("")){
                     Toast.makeText(Login.this,"Username is Blank",Toast.LENGTH_LONG).show(); }
-                else if (pas.equals("")) {
+                else if (users.getPassword().equals("")) {
                     Toast.makeText(Login.this, "Password is Blank",Toast.LENGTH_LONG).show(); }
                 else{
                     //Authenticaion
-                    Boolean checkUp = db.checkUps(usr, pas);
+                    Boolean checkUp = db.checkUps(users.getUsername(), users.getPassword());
                     if(checkUp == true) {
                         Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), ClocksPage.class);

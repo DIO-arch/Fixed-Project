@@ -3,6 +3,7 @@ package com.example.fixedproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ public class Register extends AppCompatActivity {
     EditText name,User,Pass;
     Button Reg;
     Dal db;
+    Users users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +30,26 @@ public class Register extends AppCompatActivity {
         Reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String na, un, pa;
 
-                na = name.getText().toString();
-                un = User.getText().toString();
-                pa = Pass.getText().toString();
+
+                users.setName(name.getText().toString());
+                users.setUsername(User.getText().toString());
+                users.setPassword(Pass.getText().toString());
 
                 Intent i = new Intent(getApplicationContext(), Login.class);
 
-                if (na.equals("")) {
+                if (users.getName().equals("")) {
                     Toast.makeText(Register.this, "Name is Blank", Toast.LENGTH_LONG).show();
-                } else if (un.equals("")) {
+                } else if (users.getUsername().equals("")) {
                     Toast.makeText(Register.this, "Username is Blank", Toast.LENGTH_LONG).show();
-                } else if (pa.equals("")) {
+                } else if (users.getPassword().equals("")) {
                     Toast.makeText(Register.this, "Password is Blank", Toast.LENGTH_LONG).show();
                 } else {
                     //Authenticaion
-                    Boolean checkuser = db.checkUsernames(un);
+                    Boolean checkuser = db.checkUsernames(users.getUsername());
                     if(checkuser == true) Toast.makeText(Register.this, "Username already exists", Toast.LENGTH_LONG).show();
                     else {
-                        Boolean checkInsert = db.insertData(na, un, pa);
+                        Boolean checkInsert = db.insertData(users);
                         if(checkInsert == true) {
                             Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
                             i = new Intent(getApplicationContext(), Login.class);
@@ -67,5 +69,9 @@ public class Register extends AppCompatActivity {
         else if (view.getId()==R.id.RegToStart)
             i = new Intent(this, MainActivity.class);
         startActivity(i);
+
+
+
+
     }
 }
