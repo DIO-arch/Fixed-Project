@@ -13,9 +13,11 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 public class Dal extends SQLiteOpenHelper { //for users
 
     public static final String dbname = "time_management.db";
+    private Context context = null;
 
     public Dal(Context context) {
         super(context, "time_management.db", null, 1);
+        this.context = context;
     }
 
     @Override
@@ -77,8 +79,8 @@ public class Dal extends SQLiteOpenHelper { //for users
     }
     public void deleteUser(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        //DBHelper db2 = new DBHelper(this);
-        //db2.deleteAllUserMeetings(_id);
+        DBHelper db2 = new DBHelper(this.context);
+        db2.deleteAllUserMeetings(_id);
         db.rawQuery("Delete From users where _id = ?", null);
     }
     public Boolean updateUser(long _id, Users user) {
