@@ -128,19 +128,19 @@ public class DataSelector extends AppCompatActivity {
     public void btnClick(View view)
     {
         final String[] types = {"leisure", "work", "private", "other"};
-
         ListAdapter aryListAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,types);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("title");
-
+        //failed
         builder.setAdapter(aryListAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int type) {
                         Toast.makeText(DataSelector.this, types[type],Toast.LENGTH_LONG).show();
                     }
                 });
-                AlertDialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
         dialog.getListView().setBackgroundColor(Color.GRAY);
+        dialog.show();
     }
 }
