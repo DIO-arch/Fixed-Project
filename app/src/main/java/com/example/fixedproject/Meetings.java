@@ -15,7 +15,7 @@ public class Meetings {
     private int eyear;
     private int emonth;
     private int eday;
-
+    public Meetings(){}
     public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday,long id,long userid, long typeid){
         this.title = title;
         this.sminute = sminute;

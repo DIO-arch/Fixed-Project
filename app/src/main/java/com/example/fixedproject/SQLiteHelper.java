@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 //for type
 public class SQLiteHelper extends SQLiteAssetHelper {
+    Context context = null;
     public SQLiteHelper(Context context) {
         super(context, "time_management.db", null, 1);
+        this.context = context;
     }
 
     // closing database

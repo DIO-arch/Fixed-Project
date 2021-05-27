@@ -21,6 +21,7 @@ public class MeetingsList extends AppCompatActivity {
         setContentView(R.layout.activity_meetings_list);
 
         listView1=findViewById(R.id.meetings_list);
+        DBHelper db = new DBHelper(this);
         getMeetingsData();
 
         MeetingsAdapter ma=new MeetingsAdapter(this, R.layout.meetings, aryMeetings);

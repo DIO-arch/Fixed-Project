@@ -1,6 +1,7 @@
 package com.example.fixedproject;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,14 +42,17 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
         }
 
         Meetings m = this.data.get(position);
+        SQLiteOpenHelper sql = new SQLiteHelper(this.getContext());
 
         TextView title_tv = v.findViewById(R.id.titleId);
         TextView start_tv = v.findViewById(R.id.startTime);
         TextView end_tv = v.findViewById(R.id.endTime);
+        TextView type_tv = v.findViewById(R.id.type_TV);
 
         title_tv.setText(m.getTitle());
         start_tv.setText(m.getSday() + m.getSmonth() + m.getSyear() + '\'' + m.getShour() + m.getSminute());
         end_tv.setText(m.getEday() + m.getEmonth() + m.getEyear() + '\'' + m.getEhour() + m.getEminute());
+        //type_tv.setText();
 
         return v;
     }
