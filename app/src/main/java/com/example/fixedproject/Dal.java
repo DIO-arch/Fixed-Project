@@ -54,6 +54,12 @@ public class Dal extends SQLiteOpenHelper { //for users
         if (cursor.getCount() > 0) return true;
         return false;
     }
+    public int getInt(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select _id From users where username = ?", null);
+        int temp = cursor.getInt(cursor.getColumnIndex("_id"));
+        return temp;
+    }
     public String getName(int _id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select name From users where _id = ?", null);

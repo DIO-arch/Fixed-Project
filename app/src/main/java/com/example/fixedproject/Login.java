@@ -30,7 +30,6 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usr,pas;
 
                 users.setUsername(user.getText().toString());
                 users.setPassword(pass.getText().toString());
@@ -45,6 +44,7 @@ public class Login extends AppCompatActivity {
                     if(checkUp == true) {
                         Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), ClocksPage.class);
+                        i.putExtra("_id", db.getInt(users.getUsername()));
                         startActivity(i);
                     } else Toast.makeText(Login.this, "Failed to Login", Toast.LENGTH_LONG).show();
                 }
