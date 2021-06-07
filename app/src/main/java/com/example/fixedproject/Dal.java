@@ -33,23 +33,24 @@ public class Dal extends SQLiteAssetHelper { //for users
 
     public Boolean checkUsernames(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from users where username =" +username, new String[]{username});
+        Cursor cursor = db.rawQuery("Select * from users where username = '"+username+"'", null);
+        //new String[]{username}
         if (cursor.getCount() > 0) return true;
         return false;
     } //can be modified to a password and name as well just add them in the obvious places
 
     public Boolean checkUps(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from users where username = '"+username+"'  and password =" +password, new String[]{username, password});
+        Cursor cursor = db.rawQuery("Select * from users where username = '"+username+"'  and password ='"+password+"'", null);
+        //new String[]{username, password}
         if (cursor.getCount() > 0) return true;
         return false;
     }
     public int getId(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select _id From users where username = '"+username+"'", null);
-        //return cursor.getInt(cursor.getColumnIndex("_id"));
         if (cursor.getCount() > 0)
-        return cursor.getInt(0);
+            return cursor.getInt(cursor.getColumnIndex("_id"));
         return -1;
     }
     public String getName(long _id){

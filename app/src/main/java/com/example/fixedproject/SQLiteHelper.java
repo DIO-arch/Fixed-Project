@@ -27,6 +27,8 @@ public class SQLiteHelper extends SQLiteAssetHelper {
     public int GetType_id(String type_name){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select _id From type where type_name =" +type_name,null);
-        return cursor.getInt(cursor.getColumnIndex("_id"));
+        if (cursor.getCount() > 0)
+            return cursor.getInt(cursor.getColumnIndex("_id"));
+        return -1;
     }
 }

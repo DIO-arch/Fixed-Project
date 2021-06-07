@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserInfo extends AppCompatActivity {
     Intent i = getIntent();
@@ -33,6 +34,10 @@ public class UserInfo extends AppCompatActivity {
         infopass.setText(dal.getPassword(_id));
         infouser.setText(dal.getUserName(_id));
 
+        users.setId(_id);
+        users.setName(infoname.getText().toString());
+        users.setUsername(infouser.getText().toString());
+        users.setPassword(infopass.getText().toString());
     }
     public void onClick(View view) {
         if(view.getId()==R.id.UserToClocks)
@@ -44,19 +49,23 @@ public class UserInfo extends AppCompatActivity {
     public void DeleteUser(View view){
         dal.deleteUser(_id);
     }
-    public Boolean SaveUser(View view){
+    public void SaveUser(View view){
         users.setName(infoname.getText().toString());
         users.setUsername(infouser.getText().toString());
         users.setPassword(infopass.getText().toString());
         Boolean bool = dal.updateUser(_id, users);
-        return bool;
+        if(bool)
+            Toast.makeText(UserInfo.this, "Saved", Toast.LENGTH_LONG).show();
+        else Toast.makeText(UserInfo.this, "Unsuccessful Save",Toast.LENGTH_LONG).show();
     }
     public void Reset(View view){
         infoname.setText(dal.getName(_id));
         infopass.setText(dal.getPassword(_id));
         infouser.setText(dal.getUserName(_id));
-    }
-    public void UpdateUser(View view) {
 
+        users.setId(_id);
+        users.setName(infoname.getText().toString());
+        users.setUsername(infouser.getText().toString());
+        users.setPassword(infopass.getText().toString());
     }
 }

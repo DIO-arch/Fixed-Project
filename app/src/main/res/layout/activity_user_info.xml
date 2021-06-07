@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0AEEF6"
+    android:onClick="SaveUser"
     tools:context=".UserInfo">
 
     <EditText
@@ -70,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="276dp"
-        android:onClick="UpdateUser"
+        android:onClick="SaveUser"
         android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +110,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
+        android:onClick="onClick"
         android:text="Display"
         app:layout_constraintBottom_toTopOf="@+id/UserToClocks"
         app:layout_constraintEnd_toEndOf="parent"
