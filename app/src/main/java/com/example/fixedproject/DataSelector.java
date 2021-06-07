@@ -25,10 +25,12 @@ import java.util.Calendar;
 
 public class DataSelector extends AppCompatActivity {
     private static final String TAG = "SelectSchedule";
-
+    Intent i = getIntent();
     Button sdateButton, stimeButton, edatebutton, etimebutton;
     TextView sdateTextView, stimeTextView, edateTextView, etimeTextView;
     Type type;
+    Meetings meetings = new Meetings();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class DataSelector extends AppCompatActivity {
         etimebutton = findViewById(R.id.end_time_btn);
         edateTextView = findViewById(R.id.end_date_TV);
         etimeTextView = findViewById(R.id.end_time_TV);
+        //this.meetings = meetings;
 
 
         sdateButton.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +90,16 @@ public class DataSelector extends AppCompatActivity {
                 calendar1.set(java.util.Calendar.DATE, date);
                 String dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString();
 
-                if(v.getId() == R.id.start_date_btn) sdateTextView.setText(dateText); //dateTextView
-                else if(v.getId() == R.id.end_date_btn) edateTextView.setText(dateText);
+                if(v.getId() == R.id.start_date_btn) { sdateTextView.setText(dateText);
+                meetings.setSyear(year);
+                meetings.setSmonth(month);
+                meetings.setSday(date);
+                } //dateTextView
+                else if(v.getId() == R.id.end_date_btn) { edateTextView.setText(dateText);
+                    meetings.setEyear(year);
+                    meetings.setEmonth(month);
+                    meetings.setEday(date);
+                }
                 //else throw
             }
         }, YEAR, MONTH, DATE);
@@ -111,14 +122,19 @@ public class DataSelector extends AppCompatActivity {
                 calendar1.set(Calendar.MINUTE, minute);
                 String dateText = DateFormat.format("h:mm a", calendar1).toString();
 
-                if(v.getId()==R.id.start_time_btn) stimeTextView.setText(dateText);
-                else if(v.getId()==R.id.end_time_btn) etimeTextView.setText(dateText);
+                if(v.getId()==R.id.start_time_btn) {stimeTextView.setText(dateText);
+                meetings.setShour(hour);
+                meetings.setSminute(minute);
+                }
+                else if(v.getId()==R.id.end_time_btn) {etimeTextView.setText(dateText);
+                meetings.setEhour(hour);
+                meetings.setEminute(minute);
+                }
             }
         }, HOUR, MINUTE, is24HourFormat);
         timePickerDialog.show();
     }
     public void onClick(View view) {
-        Intent i = new Intent();
         if(view.getId()==R.id.Todisplay)
             i = new Intent(this, MeetingsList.class);
         else if (view.getId()==R.id.ToClocksPage2)
@@ -142,5 +158,10 @@ public class DataSelector extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.getListView().setBackgroundColor(Color.GRAY);
         dialog.show();
+    }
+    public void Save(View view)
+    {
+       // if(meetings.getTitle().equals("") &&)
+
     }
 }

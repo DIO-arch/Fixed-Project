@@ -14,7 +14,7 @@ public class Login extends AppCompatActivity {
     EditText user,pass;
     Button login;
     Dal db;
-    Users users;
+    Users users = new Users();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,9 @@ public class Login extends AppCompatActivity {
                     if(checkUp == true) {
                         Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), ClocksPage.class);
-                        i.putExtra("_id", db.getInt(users.getUsername()));
+
+                        //Toast.makeText(Login.this, ""+db.getId(users.getUsername()), Toast.LENGTH_SHORT).show();
+                        i.putExtra("_id", db.getId(users.getUsername()));
                         startActivity(i);
                     } else Toast.makeText(Login.this, "Failed to Login", Toast.LENGTH_LONG).show();
                 }

@@ -23,9 +23,9 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
 
     public MeetingsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Meetings> objects) {
         super(context, resource, objects);
-        this.ctx= context;
+        this.ctx = context;
         this.data = objects;
-        this.meetingsResourceId=resource;
+        this.meetingsResourceId = resource;
     }
     public int getCount(){
         return data.size();
@@ -40,9 +40,9 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
         if (v == null) {
             v = li.inflate(this.meetingsResourceId, parent);
         }
-
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(this.ctx);
         Meetings m = this.data.get(position);
-        SQLiteOpenHelper sql = new SQLiteHelper(this.getContext());
+        SQLiteOpenHelper sql = new SQLiteHelper(this.ctx);
 
         TextView title_tv = v.findViewById(R.id.titleId);
         TextView start_tv = v.findViewById(R.id.startTime);
@@ -52,7 +52,7 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
         title_tv.setText(m.getTitle());
         start_tv.setText(m.getSday() + m.getSmonth() + m.getSyear() + '\'' + m.getShour() + m.getSminute());
         end_tv.setText(m.getEday() + m.getEmonth() + m.getEyear() + '\'' + m.getEhour() + m.getEminute());
-        //type_tv.setText();
+        type_tv.setText(sqLiteHelper.SelectType(m.getTypeid()));
 
         return v;
     }

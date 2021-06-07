@@ -85,10 +85,21 @@
         android:id="@+id/ClocksToDisplay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="60dp"
         android:onClick="onClick"
         android:text="To Display"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/log_off"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Log Off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ClocksToDisplay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

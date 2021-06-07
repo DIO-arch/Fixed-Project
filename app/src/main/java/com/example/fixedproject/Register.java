@@ -14,7 +14,7 @@ public class Register extends AppCompatActivity {
     EditText name,User,Pass;
     Button Reg;
     Dal db;
-    Users users;
+    Users users = new Users();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

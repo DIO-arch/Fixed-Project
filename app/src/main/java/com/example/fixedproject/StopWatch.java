@@ -10,6 +10,7 @@ import android.widget.Chronometer;
 import android.widget.Toast;
 
 public class StopWatch extends AppCompatActivity {
+    Intent i = getIntent();
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
@@ -44,7 +45,6 @@ public class StopWatch extends AppCompatActivity {
         pauseOffset = 0;
     }
     public void onClick(View view) {
-        Intent i = new Intent();
         if(view.getId()==R.id.ToClocksPage)
             i = new Intent(this, ClocksPage.class);
         else if(view.getId()==R.id.ToTimer)

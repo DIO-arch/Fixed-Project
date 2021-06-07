@@ -17,7 +17,7 @@ import java.sql.Time;
 import java.util.Locale;
 
 public class Timer extends AppCompatActivity {
-
+    Intent i = getIntent();
     private EditText mEditTextInput;
     private TextView mTextViewCountDown;
     private Button mButtonSet;
@@ -170,7 +170,6 @@ public class Timer extends AppCompatActivity {
         }
     }
     public void movingAround(View view) {
-        Intent i = new Intent();
         if(view.getId()==R.id.TimerToCP)
             i = new Intent(this, ClocksPage.class);
         else if (view.getId()==R.id.TimerToStopWatch)

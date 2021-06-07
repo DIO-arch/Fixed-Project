@@ -1,22 +1,26 @@
 package com.example.fixedproject;
 
 public class Meetings {
+    //title
     private String title; //s=start e=end
+    //ids
     private long id;
     private long userid;
     private long typeid;
+    //starts
     private int sminute;
     private int shour;
     private int syear;
     private int smonth;
     private int sday;
+    //ends
     private int eminute;
     private int ehour;
     private int eyear;
     private int emonth;
     private int eday;
     public Meetings(){}
-    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday,long id,long userid, long typeid){
+    public Meetings(String title, int sminute, int shour, int syear, int smonth, int sday, int eminute, int ehour, int eyear, int emonth, int eday, long id, long userid, long typeid){
         this.title = title;
         this.sminute = sminute;
         this.shour = shour;
@@ -113,6 +117,7 @@ public class Meetings {
     public String toString(){
         return title + '\'' +
                 sday + smonth + syear + shour + sminute + '\'' +
-                eday + emonth + eyear + ehour + eminute;
+                eday + emonth + eyear + ehour + eminute; //+ '\'' + type
     }
+
 }

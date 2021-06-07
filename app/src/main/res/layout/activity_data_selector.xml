@@ -43,9 +43,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="112dp"
         android:text="END TIME"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/end_time_btn" />
 
     <Button
@@ -55,17 +56,19 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="24dp"
         android:text="START DATE"
+        app:layout_constraintBottom_toTopOf="@+id/meetings_delete"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_time_TV" />
+        app:layout_constraintTop_toBottomOf="@+id/start_time_TV"
+        app:layout_constraintVertical_bias="0.13" />
 
     <Button
         android:id="@+id/end_date_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:text="END DATE"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toEndOf="@+id/start_date_btn"
         app:layout_constraintTop_toBottomOf="@+id/end_time_TV" />
 
@@ -76,8 +79,10 @@
         android:layout_marginStart="120dp"
         android:layout_marginTop="60dp"
         android:text="START DATE"
+        app:layout_constraintBottom_toTopOf="@+id/meetings_delete"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_date_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/start_date_btn"
+        app:layout_constraintVertical_bias="0.101" />
 
     <TextView
         android:id="@+id/end_date_TV"
@@ -116,7 +121,7 @@
         android:id="@+id/ToClocksPage2"
         android:layout_width="0dp"
         android:layout_height="39dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="60dp"
         android:onClick="onClick"
         android:text="ToClocks"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -128,10 +133,11 @@
         android:id="@+id/Todisplay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="16dp"
         android:onClick="onClick"
         android:text="ToDisplay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ToClocksPage2" />
 
@@ -140,10 +146,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="472dp"
-        android:layout_marginEnd="256dp"
         android:text="Delete"
+        app:layout_constraintBottom_toTopOf="@+id/ToClocksPage2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meeting_title" />
+        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_title"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/Reset_meeting"
@@ -153,6 +162,23 @@
         android:layout_marginBottom="180dp"
         android:text="Reset"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/meetings_delete"
+        app:layout_constraintTop_toBottomOf="@+id/end_date_TV"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/save_meeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="Save"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="@+id/Todisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
