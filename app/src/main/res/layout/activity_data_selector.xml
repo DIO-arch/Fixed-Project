@@ -56,10 +56,8 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="24dp"
         android:text="START DATE"
-        app:layout_constraintBottom_toTopOf="@+id/meetings_delete"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_time_TV"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintTop_toBottomOf="@+id/start_time_TV" />
 
     <Button
         android:id="@+id/end_date_btn"
@@ -79,10 +77,8 @@
         android:layout_marginStart="120dp"
         android:layout_marginTop="60dp"
         android:text="START DATE"
-        app:layout_constraintBottom_toTopOf="@+id/meetings_delete"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_date_btn"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintTop_toBottomOf="@+id/start_date_btn" />
 
     <TextView
         android:id="@+id/end_date_TV"
@@ -142,19 +138,6 @@
         app:layout_constraintTop_toBottomOf="@+id/ToClocksPage2" />
 
     <Button
-        android:id="@+id/meetings_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="472dp"
-        android:text="Delete"
-        app:layout_constraintBottom_toTopOf="@+id/ToClocksPage2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meeting_title"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
         android:id="@+id/Reset_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -163,8 +146,6 @@
         android:text="Reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/meetings_delete"
         app:layout_constraintTop_toBottomOf="@+id/end_date_TV"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -176,9 +157,9 @@
         android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="@+id/Todisplay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.309"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.751" />
+        app:layout_constraintVertical_bias="0.742" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

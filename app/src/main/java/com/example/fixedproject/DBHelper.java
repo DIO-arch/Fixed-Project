@@ -21,9 +21,11 @@ public class DBHelper extends SQLiteAssetHelper {
         this.context = context;
     }
 
-    public void insertData(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
+    public boolean insertData(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
         SQLiteDatabase db = getWritableDatabase();
-        String sql_insert = "INSERT INTO EXP (title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?)"; //works no need
+        if (checkConflictingMeetings(title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id)) return false;
+        if (checkUpByEverything(title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id)) return false;
+        String sql_insert = "INSERT INTO meetings (title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteStatement statement = db.compileStatement(sql_insert);
         //title
         statement.bindString(1, title);
@@ -44,74 +46,102 @@ public class DBHelper extends SQLiteAssetHelper {
         statement.bindString(13, String.valueOf(type_id));
 
         statement.execute();
+
+        return checkUpByEverything(title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id);
     }
 
     public long GetID(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select _id From meetings where title = '"+title+"' and smin = '"+smin+"' and shour = '"+shour+"' and syear = '"+syear+"' and smonth = '"+smonth+"' and sday = '"+sday+"' and emin = '"+emin+"' and ehour = '"+ehour+"' and eyear = '"+eyear+"' and emonth = '"+emonth+"' and eday = '"+eday+"' and user_id = '"+user_id+"' and type_id =" +type_id, null);
-        return cursor.getInt(cursor.getColumnIndex("_id"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("_id"));
+        return -1;
     }
     public String GetTitle(long _id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select title From meetings where _id ="  +_id,null);
-        return cursor.getString(cursor.getColumnIndex("title"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getString(cursor.getColumnIndex("title"));
+        return null;
     }
 
     public int GetSHour(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select shour From meetings where _id ="  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("shour"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("shour"));
+        return -1;
     }
     public int GetSMin(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select smin From meetings where _id ="  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("smin"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("smin"));
+        return -1;
     }
     public int GetSYear(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select syear From meetings where _id ="  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("syear"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("syear"));
+        return -1;
     }
     public int GetSMonth(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select smonth From meetings where _id ="  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("smonth"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("smonth"));
+        return -1;
     }
     public int GetSDay(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select sday From meetings where _id ="  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("sday"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("sday"));
+        return -1;
     }
 
     public int GetEHour(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select ehour From meetings where _id ="  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("ehour"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("ehour"));
+        return -1;
     }
     public int GetEMin(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select emin From meetings where _id = "  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("emin"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("emin"));
+        return -1;
     }
     public int GetEYear(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select eyear From meetings where _id = "  +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("eyear"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("eyear"));
+        return -1;
     }
     public int GetEMonth(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select emonth From meetings where _id =" +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("emonth"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("emonth"));
+        return -1;
     }
     public int GetEDay(int _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select eday From meetings where _id =" +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("eday"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("eday"));
+        return -1;
     }
     public long GetTypeId(long _id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select type_id From meetings where _id =" +_id,null);
-        return cursor.getInt(cursor.getColumnIndex("type_id"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("type_id"));
+        return -1;
     }
     public String GetType(long _id){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -136,11 +166,10 @@ public class DBHelper extends SQLiteAssetHelper {
     public ArrayList<Meetings> getAllMeetings() {
         ArrayList<Meetings> ary = new ArrayList<>();
 
-        String st = "select * from meetings";
         SQLiteDatabase db = getWritableDatabase();
-
-        Cursor cursor = db.rawQuery(st, null);
-        while (cursor.moveToNext()) {
+        Cursor cursor = db.rawQuery("Select * from meetings", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             Meetings m = new Meetings();
             //title
             m.setTitle(cursor.getString(cursor.getColumnIndex("title")));
@@ -159,19 +188,23 @@ public class DBHelper extends SQLiteAssetHelper {
             //ids
             m.setTypeid(cursor.getInt(cursor.getColumnIndex("type_id")));
             m.setUserid(cursor.getInt(cursor.getColumnIndex("user_id")));
+            m.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 
             ary.add(m);
+            cursor.moveToNext();
         }
+        cursor.close();
         return ary;
     }
     public ArrayList<Meetings> getAllMeetingsMatchingid(Long _id) {
         ArrayList<Meetings> ary = new ArrayList<>();
-        String st;
+        String st; //USE THIS ONE
         if(_id != 1) st = "select * from meetings where _id=" +_id;
         else st = "select * from meetings";
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.rawQuery(st, null);
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) {
         while (cursor.moveToNext()) {
             Meetings m = new Meetings();
             //title
@@ -191,10 +224,12 @@ public class DBHelper extends SQLiteAssetHelper {
             //ids
             m.setTypeid(cursor.getInt(cursor.getColumnIndex("type_id")));
             m.setUserid(cursor.getInt(cursor.getColumnIndex("user_id")));
+            m.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 
             ary.add(m);
         }
-        return ary;
+        return ary; }
+        return null;
     }
     public ArrayList<Meetings> getAllMeetingsMatchingUserName(String username, long _id) {
         ArrayList<Meetings> ary = new ArrayList<>();
@@ -204,6 +239,7 @@ public class DBHelper extends SQLiteAssetHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.rawQuery(st, null);
+        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             Meetings m = new Meetings();
             //title
@@ -223,6 +259,7 @@ public class DBHelper extends SQLiteAssetHelper {
             //ids
             m.setTypeid(cursor.getInt(cursor.getColumnIndex("type_id")));
             m.setUserid(cursor.getInt(cursor.getColumnIndex("user_id")));
+            m.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 
             ary.add(m);
         }
@@ -256,6 +293,7 @@ public class DBHelper extends SQLiteAssetHelper {
             //ids
             m.setTypeid(cursor.getInt(cursor.getColumnIndex("type_id")));
             m.setUserid(cursor.getInt(cursor.getColumnIndex("user_id")));
+            m.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 
             ary.add(m);
         }
@@ -264,7 +302,13 @@ public class DBHelper extends SQLiteAssetHelper {
     public Boolean checkUpByEverything(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from meetings where title = '"+title+"' and smin = '"+smin+"' and shour = '"+shour+"' and syear = '"+syear+"' and smonth = '"+smonth+"' and sday = '"+sday+"' and emin = '"+emin+"' and ehour = '"+ehour+"' and eyear = '"+eyear+"' and emonth = '"+emonth+"' and eday = '"+eday+"' and user_id = '"+user_id+"' and type_id =" +type_id, null);
-        if (cursor.getCount() > 0) return true;
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
+        return false;
+    }
+    public boolean checkConflictingMeetings(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from meetings where user_id = '"+user_id+"' between '"+shour+"' and '"+ehour+"' and between '"+smin+"' and '"+emin+"' and between '"+syear+"' and '"+eyear+"' and between '"+smonth+"' and '"+emonth+"' and between '"+sday+"' and '"+eday+"'",null);
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true; //title = '"+title+"' and user_id = '"+user_id+"' or
         return false;
     }
 }

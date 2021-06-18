@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button test;
+    Button test, print;
     private static final String Tag = "MainActivity";
 
         @Override
@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
         test = findViewById(R.id.async_task_test);
         test.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 new LongRunningTask().execute();
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(unused);
         }
     }
-
     public void onClick(View view) {
         Intent i = new Intent();
         if(view.getId()==R.id.ToLogin)

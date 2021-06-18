@@ -2,6 +2,7 @@ package com.example.fixedproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,19 +10,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserInfo extends AppCompatActivity {
-    Intent i = getIntent();
-    long _id = i.getExtras().getInt("_id");
-    Dal dal = new Dal(this);
+public class UserInfo extends Activity {
+    Intent i;
+    Dal dal;
+    long _id;
     TextView infoname, infopass, infouser;
     Button save, delete, reset;
-    Users users;
+    Users users= new Users();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
+        dal = new Dal(this);
+        i = getIntent();
+        _id = i.getExtras().getInt("_id");
         infoname = findViewById(R.id.InfoName);
         infopass = findViewById(R.id.InfoPassword);
         infouser = findViewById(R.id.InfoUser);
@@ -48,6 +52,7 @@ public class UserInfo extends AppCompatActivity {
     }
     public void DeleteUser(View view){
         dal.deleteUser(_id);
+        i = new Intent(this, MainActivity.class);
     }
     public void SaveUser(View view){
         users.setName(infoname.getText().toString());

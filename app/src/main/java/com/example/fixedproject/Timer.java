@@ -174,6 +174,7 @@ public class Timer extends AppCompatActivity {
             i = new Intent(this, ClocksPage.class);
         else if (view.getId()==R.id.TimerToStopWatch)
             i = new Intent(this, StopWatch.class);
+        i.putExtra("_id",getIntent().getExtras().getInt("_id"));
         startActivity(i);
     }
 }

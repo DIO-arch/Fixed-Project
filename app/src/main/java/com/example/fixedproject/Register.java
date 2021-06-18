@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
                     Boolean checkuser = db.checkUsernames(users.getUsername());
                     if(checkuser == true) Toast.makeText(Register.this, "Username already exists", Toast.LENGTH_LONG).show();
                     else {
-                        Boolean checkInsert = db.insertData(users);
+                        Boolean checkInsert = db.insertData(users.getName(), users.getUsername(), users.getPassword());
                         if(checkInsert == true) {
                             Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
                             i = new Intent(getApplicationContext(), Login.class);

@@ -2,7 +2,6 @@ package com.example.fixedproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
     EditText user,pass;
-    Button login;
+    Button login, print;
     Dal db;
     Users users = new Users();
 
@@ -21,11 +20,23 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        user = findViewById(R.id.edName);
+        user = findViewById(R.id.edUserName);
         pass = findViewById(R.id.edPassword);
 
         login = findViewById(R.id.Login);
+        print = findViewById(R.id.database_print);
         db = new Dal(this);
+
+        print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] strings = db.databasePrint();
+                int i = 0;
+                for (i = 0; i <= strings.length - 1; i++) {
+                    Toast.makeText(Login.this, "Column Name: " +strings[i], Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +56,7 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), ClocksPage.class);
 
-                        //Toast.makeText(Login.this, ""+db.getId(users.getUsername()), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Login.this, ""+db.getId((users.getUsername())), Toast.LENGTH_SHORT).show();
                         i.putExtra("_id", db.getId(users.getUsername()));
                         startActivity(i);
                     } else Toast.makeText(Login.this, "Failed to Login", Toast.LENGTH_LONG).show();

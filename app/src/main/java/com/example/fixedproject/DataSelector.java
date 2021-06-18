@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,10 +26,13 @@ import java.util.Calendar;
 
 public class DataSelector extends AppCompatActivity {
     private static final String TAG = "SelectSchedule";
-    Intent i = getIntent();
+    Intent i;
     Button sdateButton, stimeButton, edatebutton, etimebutton;
     TextView sdateTextView, stimeTextView, edateTextView, etimeTextView;
-    Type type;
+    Type type = new Type();
+    DBHelper db;
+    long _id;
+    EditText title;
     Meetings meetings = new Meetings();
 
     @Override
@@ -36,16 +40,21 @@ public class DataSelector extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_selector);
 
+        i = getIntent();
+        _id = i.getExtras().getInt("_id");
+        meetings.setUserid(_id);
+        //s = start
         sdateButton = findViewById(R.id.start_date_btn);
         stimeButton = findViewById(R.id.start_time_btn);
         sdateTextView = findViewById(R.id.start_date_TV);
         stimeTextView = findViewById(R.id.start_time_TV);
+        //e = end
         edatebutton = findViewById(R.id.end_date_btn);
         etimebutton = findViewById(R.id.end_time_btn);
         edateTextView = findViewById(R.id.end_date_TV);
         etimeTextView = findViewById(R.id.end_time_TV);
-        //this.meetings = meetings;
-
+        //title
+        title = findViewById(R.id.meeting_title);
 
         sdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +89,8 @@ public class DataSelector extends AppCompatActivity {
         int MONTH = calendar.get(java.util.Calendar.MONTH);
         int DATE = calendar.get(java.util.Calendar.DATE);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog =
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
 
@@ -88,7 +98,8 @@ public class DataSelector extends AppCompatActivity {
                 calendar1.set(java.util.Calendar.YEAR, year);
                 calendar1.set(java.util.Calendar.MONTH, month);
                 calendar1.set(java.util.Calendar.DATE, date);
-                String dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString();
+                String dateText =
+                        DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString();
 
                 if(v.getId() == R.id.start_date_btn) { sdateTextView.setText(dateText);
                 meetings.setSyear(year);
@@ -113,7 +124,8 @@ public class DataSelector extends AppCompatActivity {
         int MINUTE = calendar.get(java.util.Calendar.MINUTE);
         boolean is24HourFormat = DateFormat.is24HourFormat(this);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog =
+                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 Log.i(TAG, "onTimeSet: " + hour + minute);
@@ -139,16 +151,17 @@ public class DataSelector extends AppCompatActivity {
             i = new Intent(this, MeetingsList.class);
         else if (view.getId()==R.id.ToClocksPage2)
             i = new Intent(this, ClocksPage.class);
+        i.putExtra("_id",getIntent().getExtras().getInt("_id"));
         startActivity(i);
     }
     public void btnClick(View view)
     {
         final String[] types = {"leisure", "work", "private", "other"};
-        ListAdapter aryListAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,types);
+        ListAdapter aryListAdapter =
+                new ArrayAdapter(this, android.R.layout.simple_list_item_1,types);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("title");
-        //failed
         builder.setAdapter(aryListAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int type) {
@@ -159,9 +172,55 @@ public class DataSelector extends AppCompatActivity {
         dialog.getListView().setBackgroundColor(Color.GRAY);
         dialog.show();
     }
-    public void Save(View view)
+    public Boolean Save(View view)
     {
-       // if(meetings.getTitle().equals("") &&)
+       if(!meetings.getTitle().equals("")) {
+           Toast.makeText(DataSelector.this, "Title missing", Toast.LENGTH_LONG).show();
+           return false; }
+       if(meetings.getShour()>-1 && meetings.getSminute()>-1){
+           Toast.makeText(DataSelector.this, "Meeting start time missing", Toast.LENGTH_LONG).show();
+           return false; }
+       if(meetings.getSyear()>-1 && meetings.getSmonth()>0 && meetings.getSday()>0) {
+           Toast.makeText(DataSelector.this, "Meeting start date missing", Toast.LENGTH_LONG).show();
+           return false;
+       }
+       if(meetings.getEhour()>-1 && meetings.getEminute()>-1){
+           Toast.makeText(DataSelector.this, "Meeting end time missing", Toast.LENGTH_LONG).show();
+           return false; }
+       if(meetings.getEyear()>-1 && meetings.getEmonth()>0 && meetings.getEday()>0) {
+           Toast.makeText(DataSelector.this, "Meeting end date missing", Toast.LENGTH_LONG).show();
+           return false; }
+       if(db.insertData(meetings.getTitle(),
+                   meetings.getSminute(),meetings.getShour(),
+                   meetings.getSyear(),meetings.getSmonth(),meetings.getSday(),
+                   meetings.getEminute(),meetings.getEhour(),
+                   meetings.getEyear(),meetings.getEmonth(),meetings.getEday(),
+                   meetings.getUserid(),meetings.getTypeid()))
+       { Toast.makeText(DataSelector.this, "MEETING SAVED", Toast.LENGTH_LONG).show();
+       return true;}
+       Toast.makeText(DataSelector.this, "FAILED TO SAVE", Toast.LENGTH_LONG).show();
+       return false;
+    }
+    public void Reset(){
+        title.setText("");
+        sdateTextView.setText("");
+        stimeTextView.setText("");
 
+
+        meetings.setTitle("");
+        //start
+        meetings.setShour(-1);
+        meetings.setSminute(-1);
+        meetings.setSyear(-1);
+        meetings.setSmonth(-1);
+        meetings.setSday(-1);
+        //end
+        meetings.setEhour(-1);
+        meetings.setEminute(-1);
+        meetings.setEyear(-1);
+        meetings.setEmonth(-1);
+        meetings.setEday(-1);
+        //ids
+        meetings.setTypeid(-1);
     }
 }

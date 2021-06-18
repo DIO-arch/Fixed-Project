@@ -21,13 +21,16 @@ public class SQLiteHelper extends SQLiteAssetHelper {
     }
     public String SelectType(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
+        if (_id != -1){
         Cursor cursor = db.rawQuery("Select type_name From type where _id =" +_id,null);
-        return cursor.getString(cursor.getColumnIndex("type_name"));
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+            return cursor.getString(cursor.getColumnIndex("type_name")); }
+        return null;
     }
     public int GetType_id(String type_name){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select _id From type where type_name =" +type_name,null);
-        if (cursor.getCount() > 0)
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
             return cursor.getInt(cursor.getColumnIndex("_id"));
         return -1;
     }
