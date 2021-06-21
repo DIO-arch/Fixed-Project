@@ -108,7 +108,7 @@ public class Dal extends SQLiteAssetHelper { //for users
     public void deleteUser(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         DBHelper db2 = new DBHelper(this.context);
-        db2.deleteAllUserMeetings(_id);
+        //db2.deleteAllUserMeetings(_id); //testing phase
         db.rawQuery("Delete From users where _id =" +_id, null);
     }
     public Boolean updateUser(long _id, Users user) {
@@ -116,9 +116,14 @@ public class Dal extends SQLiteAssetHelper { //for users
         Boolean b1 = updateName(_id, user.getName());
         Boolean b2 = updateUserName(_id, user.getUsername());
         Boolean b3 = updatePassword(_id, user.getPassword());
-        if (b1 || b2 || b3)
-            return true;
-        return false;
+        Boolean b4 = false; //b1 || b2 || b3
+        if (b1)
+            b4 = true;
+        if (b2)
+            b4 = true;
+        if (b3)
+            b4 = true;
+        return b4;
     }
     public Boolean updateName(long _id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();

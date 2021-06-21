@@ -47,6 +47,7 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
 
         i = getIntent();
         _id = i.getExtras().getInt("_id");
+        db = new DBHelper(this);
         meetings.setUserid(_id);
         //s = start
         sdateButton = findViewById(R.id.start_date_btn);
@@ -192,12 +193,13 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
                     meetings.getSyear(),meetings.getSmonth(),meetings.getSday(),
                     meetings.getEminute(),meetings.getEhour(),
                     meetings.getEyear(),meetings.getEmonth(),meetings.getEday(),
-                    meetings.getUserid(),meetings.getTypeid()))
+                    (int) meetings.getUserid(),(int) meetings.getTypeid()))
                 Toast.makeText(DataSelector.this, "MEETING SAVED", Toast.LENGTH_LONG).show();
-            else
+            else {
                 Toast.makeText(DataSelector.this, "FAILED TO SAVE", Toast.LENGTH_LONG).show();
+                Toast.makeText(DataSelector.this, "FAILED Checks somethings might be missing", Toast.LENGTH_LONG).show();
+            }
         }
-        Toast.makeText(DataSelector.this, "FAILED Checks somethings might be missing", Toast.LENGTH_LONG).show();
     }
     public Boolean CheckNull(View view) {
        if(meetings.getTitle().equals("")) {

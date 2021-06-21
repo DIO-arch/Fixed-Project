@@ -23,27 +23,27 @@ public class DBHelper extends SQLiteAssetHelper {
 
     public boolean insertData(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
         SQLiteDatabase db = getWritableDatabase();
-        if (checkConflictingMeetings(title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id)) return false;
+        //if (checkConflictingMeetings(title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id)) return false;
         if (checkUpByEverything(title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id)) return false;
         String sql_insert = "INSERT INTO meetings (title, smin, shour, syear, smonth, sday, emin, ehour, eyear, emonth, eday, user_id, type_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteStatement statement = db.compileStatement(sql_insert);
         //title
-        statement.bindString(1, title);
+        statement.bindString(13, title);
         //starts
-        statement.bindString(2, String.valueOf(smin));
-        statement.bindString(3, String.valueOf(shour));
-        statement.bindString(4, String.valueOf(syear));
-        statement.bindString(5, String.valueOf(smonth));
-        statement.bindString(6, String.valueOf(sday));
+        statement.bindString(1, String.valueOf(smin));
+        statement.bindString(2, String.valueOf(shour));
+        statement.bindString(3, String.valueOf(syear));
+        statement.bindString(4, String.valueOf(smonth));
+        statement.bindString(5, String.valueOf(sday));
         //ends
-        statement.bindString(7, String.valueOf(emin));
-        statement.bindString(8, String.valueOf(ehour));
-        statement.bindString(9, String.valueOf(eyear));
-        statement.bindString(10, String.valueOf(emonth));
-        statement.bindString(11, String.valueOf(eday));
+        statement.bindString(6, String.valueOf(emin));
+        statement.bindString(7, String.valueOf(ehour));
+        statement.bindString(8, String.valueOf(eyear));
+        statement.bindString(9, String.valueOf(emonth));
+        statement.bindString(10, String.valueOf(eday));
         //ids
-        statement.bindString(12, String.valueOf(user_id));
-        statement.bindString(13, String.valueOf(type_id));
+        statement.bindString(11, String.valueOf(user_id));
+        statement.bindString(12, String.valueOf(type_id));
 
         statement.execute();
 
