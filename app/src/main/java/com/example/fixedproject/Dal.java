@@ -74,7 +74,7 @@ public class Dal extends SQLiteAssetHelper { //for users
 
     public boolean fakeGetId(String username) {
         SQLiteDatabase db = this.getWritableDatabase(); //below
-        Cursor cursor = db.rawQuery("Select _id From users where username = '" + username + "'", null);
+        Cursor cursor = db.rawQuery("Select _id From users where username = '"+username+"'", null);
         return cursor.moveToFirst();
     }
 
@@ -116,7 +116,7 @@ public class Dal extends SQLiteAssetHelper { //for users
         Boolean b1 = updateName(_id, user.getName());
         Boolean b2 = updateUserName(_id, user.getUsername());
         Boolean b3 = updatePassword(_id, user.getPassword());
-        if (b1 && b2 && b3)
+        if (b1 || b2 || b3)
             return true;
         return false;
     }

@@ -13,23 +13,26 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class DataSelector extends AppCompatActivity {
+public class DataSelector extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private static final String TAG = "SelectSchedule";
     Intent i;
     Button sdateButton, stimeButton, edatebutton, etimebutton;
     TextView sdateTextView, stimeTextView, edateTextView, etimeTextView;
     Type type = new Type();
+    SQLiteHelper sqLiteHelper;
     DBHelper db;
     long _id;
     EditText title;
@@ -39,6 +42,8 @@ public class DataSelector extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_selector);
+
+        sqLiteHelper = new SQLiteHelper(this);
 
         i = getIntent();
         _id = i.getExtras().getInt("_id");
@@ -55,6 +60,13 @@ public class DataSelector extends AppCompatActivity {
         etimeTextView = findViewById(R.id.end_time_TV);
         //title
         title = findViewById(R.id.meeting_title);
+
+        Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         sdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,40 +184,51 @@ public class DataSelector extends AppCompatActivity {
         dialog.getListView().setBackgroundColor(Color.GRAY);
         dialog.show();
     }
-    public Boolean Save(View view)
-    {
-       if(!meetings.getTitle().equals("")) {
+    public void InsertMeeting(View view) {
+        meetings.setTitle(title.getText().toString());
+        if (CheckNull(view)) {
+            if(db.insertData(meetings.getTitle(),
+                    meetings.getSminute(),meetings.getShour(),
+                    meetings.getSyear(),meetings.getSmonth(),meetings.getSday(),
+                    meetings.getEminute(),meetings.getEhour(),
+                    meetings.getEyear(),meetings.getEmonth(),meetings.getEday(),
+                    meetings.getUserid(),meetings.getTypeid()))
+                Toast.makeText(DataSelector.this, "MEETING SAVED", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(DataSelector.this, "FAILED TO SAVE", Toast.LENGTH_LONG).show();
+        }
+        Toast.makeText(DataSelector.this, "FAILED Checks somethings might be missing", Toast.LENGTH_LONG).show();
+    }
+    public Boolean CheckNull(View view) {
+       if(meetings.getTitle().equals("")) {
            Toast.makeText(DataSelector.this, "Title missing", Toast.LENGTH_LONG).show();
            return false; }
-       if(meetings.getShour()>-1 && meetings.getSminute()>-1){
+       if(!(meetings.getShour()>-1) && !(meetings.getSminute()>-1)){
            Toast.makeText(DataSelector.this, "Meeting start time missing", Toast.LENGTH_LONG).show();
            return false; }
-       if(meetings.getSyear()>-1 && meetings.getSmonth()>0 && meetings.getSday()>0) {
+       if(!(meetings.getSyear()>-1) && !(meetings.getSmonth()>0) && !(meetings.getSday()>0)){
            Toast.makeText(DataSelector.this, "Meeting start date missing", Toast.LENGTH_LONG).show();
-           return false;
-       }
-       if(meetings.getEhour()>-1 && meetings.getEminute()>-1){
+           return false; }
+       if(!(meetings.getEhour()>-1) && !(meetings.getEminute()>-1)){
            Toast.makeText(DataSelector.this, "Meeting end time missing", Toast.LENGTH_LONG).show();
            return false; }
-       if(meetings.getEyear()>-1 && meetings.getEmonth()>0 && meetings.getEday()>0) {
+       if(!(meetings.getEyear()>-1) && !(meetings.getEmonth()>0) && !(meetings.getEday()>0)){
            Toast.makeText(DataSelector.this, "Meeting end date missing", Toast.LENGTH_LONG).show();
            return false; }
-       if(db.insertData(meetings.getTitle(),
-                   meetings.getSminute(),meetings.getShour(),
-                   meetings.getSyear(),meetings.getSmonth(),meetings.getSday(),
-                   meetings.getEminute(),meetings.getEhour(),
-                   meetings.getEyear(),meetings.getEmonth(),meetings.getEday(),
-                   meetings.getUserid(),meetings.getTypeid()))
-       { Toast.makeText(DataSelector.this, "MEETING SAVED", Toast.LENGTH_LONG).show();
-       return true;}
-       Toast.makeText(DataSelector.this, "FAILED TO SAVE", Toast.LENGTH_LONG).show();
-       return false;
+        if(!(meetings.getTypeid()>0)) {
+            Toast.makeText(DataSelector.this, "Type Fail", Toast.LENGTH_LONG).show();
+            return false; }
+        if(!(meetings.getUserid()>0)) {
+            Toast.makeText(DataSelector.this, "User ID Fail", Toast.LENGTH_LONG).show();
+            return false; }
+        return true;
     }
-    public void Reset(){
+    public void Reset(View view){
         title.setText("");
         sdateTextView.setText("");
         stimeTextView.setText("");
-
+        edateTextView.setText("");
+        etimeTextView.setText("");
 
         meetings.setTitle("");
         //start
@@ -222,5 +245,18 @@ public class DataSelector extends AppCompatActivity {
         meetings.setEday(-1);
         //ids
         meetings.setTypeid(-1);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        long type_id = sqLiteHelper.GetType_id(text);
+        meetings.setTypeid(type_id);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

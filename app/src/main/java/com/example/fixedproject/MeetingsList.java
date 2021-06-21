@@ -11,9 +11,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MeetingsList extends AppCompatActivity {
-    Intent i = getIntent();
-    ListView meetings_listview; //renamed
+    Intent i;
+    ListView meetings_listview;
     ArrayList<Meetings> aryMeetings = new ArrayList<Meetings>();
+    long _id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,9 @@ public class MeetingsList extends AppCompatActivity {
 
         meetings_listview = findViewById(R.id.meetings_list);
         DBHelper db = new DBHelper(this);
-        aryMeetings = db.getAllMeetings();
+        i = getIntent();
+        _id = i.getExtras().getInt("_id");
+        aryMeetings = db.getAllMeetingsMatchingid(_id); //getAllMeetings();
 
         Toast.makeText(MeetingsList.this,""+aryMeetings.size(),Toast.LENGTH_LONG).show();
 
@@ -34,6 +37,7 @@ public class MeetingsList extends AppCompatActivity {
             i = new Intent(this, ClocksPage.class);
         else if(view.getId()==R.id.new_meeting)
             i = new Intent(this, DataSelector.class);
+        i.putExtra("_id",getIntent().getExtras().getInt("_id"));
         startActivity(i);
     }
     // title

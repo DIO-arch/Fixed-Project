@@ -198,14 +198,14 @@ public class DBHelper extends SQLiteAssetHelper {
     }
     public ArrayList<Meetings> getAllMeetingsMatchingid(Long _id) {
         ArrayList<Meetings> ary = new ArrayList<>();
-        String st; //USE THIS ONE
+        String st;
         if(_id != 1) st = "select * from meetings where _id=" +_id;
         else st = "select * from meetings";
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.rawQuery(st, null);
         if (cursor.getCount() > 0 && cursor.moveToFirst()) {
-        while (cursor.moveToNext()) {
+        while (!cursor.isAfterLast()) {
             Meetings m = new Meetings();
             //title
             m.setTitle(cursor.getString(cursor.getColumnIndex("title")));
@@ -227,7 +227,9 @@ public class DBHelper extends SQLiteAssetHelper {
             m.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 
             ary.add(m);
+            cursor.moveToNext();
         }
+            cursor.close();
         return ary; }
         return null;
     }

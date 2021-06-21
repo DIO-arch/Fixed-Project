@@ -50,8 +50,8 @@ public class MeetingsAdapter extends ArrayAdapter<Meetings> {
         TextView type_tv = v.findViewById(R.id.type_TV);
 
         title_tv.setText(m.getTitle());
-        start_tv.setText("" + m.getSday() + " " + m.getSmonth() + " " + m.getSyear() + '\'' + " " + m.getShour() + " " + m.getSminute());
-        end_tv.setText("" + m.getEday() + " " + m.getEmonth() + " " + m.getEyear() + '\'' + " " + m.getEhour() + " " + m.getEminute());
+        start_tv.setText("" + m.getSday() + "/" + m.getSmonth() + "/" + m.getSyear() + " " + m.getShour() + ":" + m.getSminute()); //+ '\''
+        end_tv.setText("" + m.getEday() + "/" + m.getEmonth() + "/" + m.getEyear() + " " + m.getEhour() + ":" + m.getEminute());
         type_tv.setText(sqLiteHelper.SelectType(m.getTypeid()));
 
         return v;

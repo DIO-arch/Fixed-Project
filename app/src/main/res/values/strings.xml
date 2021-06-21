@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Fixed Project</string>
+
+    <string-array name="types">
+        <item>leisure</item>
+        <item>work</item>
+        <item>private</item>
+        <item>other</item>
+    </string-array>
 </resources>
