@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
 import java.util.ArrayList;
 
 public class MeetingsList extends AppCompatActivity {
@@ -15,6 +17,7 @@ public class MeetingsList extends AppCompatActivity {
     ListView meetings_listview;
     ArrayList<Meetings> aryMeetings = new ArrayList<Meetings>();
     long _id;
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +25,19 @@ public class MeetingsList extends AppCompatActivity {
         setContentView(R.layout.activity_meetings_list);
 
         meetings_listview = findViewById(R.id.meetings_list);
-        DBHelper db = new DBHelper(this);
+        db = new DBHelper(this);
         i = getIntent();
         _id = i.getExtras().getInt("_id");
-        aryMeetings = db.getAllMeetingsMatchingid(_id); //getAllMeetings();
+        if(db.checkIfUserHasMeetings(_id)) {
+            aryMeetings = db.getAllMeetingsMatchingid(_id); //getAllMeetings();
 
-        Toast.makeText(MeetingsList.this,""+aryMeetings.size(),Toast.LENGTH_LONG).show();
+            Toast.makeText(MeetingsList.this, "" + aryMeetings.size(), Toast.LENGTH_LONG).show();
 
-        MeetingsAdapter ma = new MeetingsAdapter(this, R.layout.meetings, aryMeetings);
-        meetings_listview.setAdapter(ma);
+            MeetingsAdapter ma = new MeetingsAdapter(this, R.layout.meetings, aryMeetings);
+            meetings_listview.setAdapter(ma);
+        } else {
+            Toast.makeText(MeetingsList.this, "This user has no meetings", Toast.LENGTH_LONG).show();
+        }
     }
     public void onClick(View view) {
         if(view.getId()==R.id.to_clocks2)
@@ -47,5 +54,11 @@ public class MeetingsList extends AppCompatActivity {
     public void getMeetingsData(){
         aryMeetings.add(new Meetings("wedding",35,13,2021,5,7,59,16,2021,12,4,36,1,3));
         aryMeetings.add(new Meetings("morning_breakfast",25,8,2001,12,12,13,13,2222,11,24,37,1,2));
+    }
+    public void DeleteMeetings(View view){
+        if(db.checkIfUserHasMeetings(_id))
+            db.deleteAllUserMeetings(_id);
+        else
+            Toast.makeText(MeetingsList.this, "Sorry but the app can't delete meetings that don't exist", Toast.LENGTH_LONG).show();
     }
 }

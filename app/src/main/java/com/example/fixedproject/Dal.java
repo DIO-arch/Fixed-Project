@@ -108,8 +108,26 @@ public class Dal extends SQLiteAssetHelper { //for users
     public void deleteUser(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         DBHelper db2 = new DBHelper(this.context);
-        //db2.deleteAllUserMeetings(_id); //testing phase
+        if(db2.checkIfUserHasMeetings(_id))
+            db2.deleteAllUserMeetings(_id);
         db.rawQuery("Delete From users where _id =" +_id, null);
+    }
+    public Boolean deleteUser(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        DBHelper db2 = new DBHelper(this.context);
+        Cursor cursor = db.rawQuery("Select * from users where username= '"+username+"'", null);
+        if(cursor.getCount() > 0){
+            String sql_delete = "DELETE from users where username = ?";
+            SQLiteStatement statement = db.compileStatement(sql_delete);
+            //_id = 0, name = 1, username = 2, password = 3
+            statement.bindString(cursor.getColumnIndex("username"), username);
+            statement.execute();
+            if(db2.checkIfUserHasMeetings(this.getId(username))) {
+                db2.deleteAllUserMeetings(this.getId(username));
+            }
+            return true;
+        }
+        return false;
     }
     public Boolean updateUser(long _id, Users user) {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -167,8 +167,7 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
         i.putExtra("_id",getIntent().getExtras().getInt("_id"));
         startActivity(i);
     }
-    public void btnClick(View view)
-    {
+    public void btnClick(View view) {
         final String[] types = {"leisure", "work", "private", "other"};
         ListAdapter aryListAdapter =
                 new ArrayAdapter(this, android.R.layout.simple_list_item_1,types);

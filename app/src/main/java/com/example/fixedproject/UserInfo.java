@@ -52,7 +52,7 @@ public class UserInfo extends Activity {
         startActivity(i);
     }
     public void DeleteUser(View view){
-        dal.deleteUser(_id);
+        dal.deleteUser(dal.getUserName(_id));
         i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
