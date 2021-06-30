@@ -51,14 +51,19 @@ public class MeetingsList extends AppCompatActivity {
                     adb.setPositiveButton("Update Meeting", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    i = new Intent(MeetingsList.this, Update_Meeting.class);
-
-                                    i.putExtra("_id",getIntent().getExtras().getInt("_id"));
-                                    i.putExtra("meeting_id", position);
-                                    startActivity(i);
+                                    db.deleteMeeting(position);
                                 }
                             });
-
+                    adb.setNegativeButton("Delete Meeting", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Boolean b = db.deleteMeeting(position);
+                            //aryMeetings.notifyAll();
+                            if (b)
+                                Toast.makeText(MeetingsList.this, "Meeting deleted", Toast.LENGTH_LONG).show();
+                            else Toast.makeText(MeetingsList.this, "Failed to delete", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     adb.show();
                 }
             });
