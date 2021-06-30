@@ -158,6 +158,10 @@ public class DBHelper extends SQLiteAssetHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.rawQuery("Delete From meetings where user_id =" +user_id, null);
     }
+    public void deleteAllUserMeetings(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+    }
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
         if (db != null && db.isOpen())

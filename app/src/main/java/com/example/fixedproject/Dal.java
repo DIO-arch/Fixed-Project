@@ -116,7 +116,7 @@ public class Dal extends SQLiteAssetHelper { //for users
         SQLiteDatabase db = this.getWritableDatabase();
         DBHelper db2 = new DBHelper(this.context);
         Cursor cursor = db.rawQuery("Select * from users where username= '"+username+"'", null);
-        if(cursor.getCount() > 0){
+        if(cursor.getCount() > 0 && cursor.moveToFirst()){
             String sql_delete = "DELETE from users where username = ?";
             SQLiteStatement statement = db.compileStatement(sql_delete);
             //_id = 0, name = 1, username = 2, password = 3
@@ -135,30 +135,30 @@ public class Dal extends SQLiteAssetHelper { //for users
         Boolean b2 = updateUserName(_id, user.getUsername());
         Boolean b3 = updatePassword(_id, user.getPassword());
         Boolean b4 = false; //b1 || b2 || b3
-        if (b1)
+        if (b1 == true)
             b4 = true;
-        if (b2)
+        if (b2 == true)
             b4 = true;
-        if (b3)
+        if (b3 == true)
             b4 = true;
         return b4;
     }
     public Boolean updateName(long _id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Update users set name = '"+name+"' where _id =" +_id, null);
-        if (cursor.getCount() > 0) return true;
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
         return false;
     }
     public Boolean updateUserName(long _id, String username) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Update users set username = '"+username+"' where _id =" +_id, null);
-        if (cursor.getCount() > 0) return true;
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
         return false;
     }
     public Boolean updatePassword(long _id, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Update users set password = '"+password+"' where _id =" +_id, null);
-        if (cursor.getCount() > 0) return true;
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
         return false;
     }
     public String[] databasePrint(){

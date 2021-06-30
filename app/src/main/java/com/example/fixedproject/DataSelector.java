@@ -192,7 +192,7 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
                     meetings.getSyear(),meetings.getSmonth(),meetings.getSday(),
                     meetings.getEminute(),meetings.getEhour(),
                     meetings.getEyear(),meetings.getEmonth(),meetings.getEday(),
-                    (int) meetings.getUserid(),(int) meetings.getTypeid()))
+                    meetings.getUserid(), meetings.getTypeid())) //(int)
                 Toast.makeText(DataSelector.this, "MEETING SAVED", Toast.LENGTH_LONG).show();
             else {
                 Toast.makeText(DataSelector.this, "FAILED TO SAVE", Toast.LENGTH_LONG).show();
@@ -257,7 +257,9 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent) { }
 
+    public void IdCheck(View view){
+        Toast.makeText(DataSelector.this, "user's id" +_id, Toast.LENGTH_LONG).show();
     }
 }

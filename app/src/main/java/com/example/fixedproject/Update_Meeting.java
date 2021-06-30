@@ -45,19 +45,21 @@ public class Update_Meeting extends AppCompatActivity implements AdapterView.OnI
         i = getIntent();
         sqLiteHelper = new SQLiteHelper(this);
         db = new DBHelper(this);
+        //ids
         meeting_id = i.getExtras().getInt("meeting_id");
         user_id = i.getExtras().getInt("_id");
-
+        //starts
         sdateButton = findViewById(R.id.start_date_btnU);
         stimeButton = findViewById(R.id.start_time_btnU);
         sdateTextView = findViewById(R.id.start_date_TVU);
         stimeTextView = findViewById(R.id.start_time_TVU);
+        //ends
         edatebutton = findViewById(R.id.end_date_btnU);
         etimebutton = findViewById(R.id.end_time_btnU);
         edateTextView = findViewById(R.id.end_date_TVU);
         etimeTextView = findViewById(R.id.end_time_TVU);
-
-
+        //title
+        title = findViewById(R.id.meeting_titleU);
 
         Spinner spinner = findViewById(R.id.spinnerU);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
