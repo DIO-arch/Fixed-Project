@@ -32,7 +32,7 @@ public class MeetingsList extends AppCompatActivity {
         i = getIntent();
         _id = i.getExtras().getInt("_id");
         if(db.checkIfUserHasMeetings(_id)) {
-            aryMeetings = db.getAllMeetingsMatchingid(_id); //getAllMeetings();
+            aryMeetings = db.getAllMeetingsMatchingid(_id); //db.getAllMeetingsADMIN(_id); //getAllMeetings();
 
             Toast.makeText(MeetingsList.this, "" + aryMeetings.size(), Toast.LENGTH_LONG).show();
 
@@ -59,8 +59,7 @@ public class MeetingsList extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Boolean b = db.deleteMeeting(position);
                             //aryMeetings.notifyAll();
-                            if (b)
-                                Toast.makeText(MeetingsList.this, "Meeting deleted", Toast.LENGTH_LONG).show();
+                            if (b) Toast.makeText(MeetingsList.this, "Meeting deleted", Toast.LENGTH_LONG).show();
                             else Toast.makeText(MeetingsList.this, "Failed to delete", Toast.LENGTH_LONG).show();
                         }
                     });

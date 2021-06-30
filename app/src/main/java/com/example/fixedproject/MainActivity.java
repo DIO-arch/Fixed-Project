@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 public class MainActivity extends AppCompatActivity {
     Button test, print;
     private static final String Tag = "MainActivity";
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Log.d(Tag, "doin: TESTING LET'S SEE IF IT WORKS PLEASE WORK WRITING THIS LONG SO I FIND IT");
+            Log.d(Tag, "doing: TESTING LET'S SEE IF IT WORKS PLEASE WORK WRITING THIS LONG SO I FIND IT");
             //Toast.makeText(MainActivity.this, "Failed to Login", Toast.LENGTH_LONG).show();
             return null;
         }

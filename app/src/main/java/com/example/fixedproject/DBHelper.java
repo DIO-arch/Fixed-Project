@@ -203,10 +203,10 @@ public class DBHelper extends SQLiteAssetHelper {
         cursor.close();
         return ary;
     }
-    public ArrayList<Meetings> getAllMeetingsMatchingid(Long _id) {
+    public ArrayList<Meetings> getAllMeetingsMatchingid(Long user_id) {
         ArrayList<Meetings> ary = new ArrayList<>();
         String st;
-        if(_id != 1) st = "select * from meetings where _id=" +_id;
+        if(user_id != 1) st = "select * from meetings where user_id=" +user_id;
         else st = "select * from meetings";
         SQLiteDatabase db = getWritableDatabase();
 
@@ -272,18 +272,19 @@ public class DBHelper extends SQLiteAssetHelper {
 
             ary.add(m);
         }
+        ary.clear();
         return ary;
     }
-    public ArrayList<Meetings> getAllMeetingsADMIN(Long _id) {
+    public ArrayList<Meetings> getAllMeetingsADMIN(Long user_id) {
         ArrayList<Meetings> ary = new ArrayList<>();
         String st;
         Dal dal = new Dal(this.context);
-        if(dal.getUserName(_id) != "admin") st = "select * from meetings where _id=" +_id;
+        if(dal.getUserName(user_id) != "admin") st = "select * from meetings where user_id=" +user_id;
         else st = "select * from meetings";
         SQLiteDatabase db = getWritableDatabase();
-
         Cursor cursor = db.rawQuery(st, null);
-        while (cursor.moveToNext()) {
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             Meetings m = new Meetings();
             //title
             m.setTitle(cursor.getString(cursor.getColumnIndex("title")));
@@ -305,7 +306,9 @@ public class DBHelper extends SQLiteAssetHelper {
             m.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 
             ary.add(m);
+            cursor.moveToNext();
         }
+        cursor.close();
         return ary;
     }
     public Boolean checkUpByEverything(String title, int smin, int shour, int syear, int smonth, int sday, int emin, int ehour, int eyear, int emonth,int eday, long user_id, long type_id) {
