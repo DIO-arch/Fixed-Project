@@ -61,6 +61,32 @@ public class Update_Meeting extends AppCompatActivity implements AdapterView.OnI
         //title
         title = findViewById(R.id.meeting_titleU);
 
+        //meetings
+
+        //title
+        meetings.setTitle(meetings.getTitle());
+        //ids
+        meetings.setId(meeting_id);
+        meetings.setUserid(user_id);
+        meetings.setTypeid(db.GetTypeId(meeting_id));
+        //starts
+        meetings.setSminute(db.GetSMin(meeting_id));
+        meetings.setShour(db.GetSHour(meeting_id));
+
+        meetings.setSyear(db.GetSYear(meeting_id));
+        meetings.setSmonth(db.GetSMonth(meeting_id));
+        meetings.setSday(db.GetSDay(meeting_id));
+        //ends
+        meetings.setEminute(db.GetEMin(meeting_id));
+        meetings.setEhour(db.GetEHour(meeting_id));
+
+        meetings.setEyear(db.GetEYear(meeting_id));
+        meetings.setEmonth(db.GetEMonth(meeting_id));
+        meetings.setEday(db.GetEDay(meeting_id));
+
+        //starts
+        //sdateButton.setText(meetings.get);
+
         Spinner spinner = findViewById(R.id.spinnerU);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.types, android.R.layout.simple_spinner_item);

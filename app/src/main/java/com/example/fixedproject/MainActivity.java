@@ -30,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private class LongRunningTask extends AsyncTask<Void, Void, Void> {
+        private WeakReference<MainActivity> activityWeakReference;
+        MainActivity activity = activityWeakReference.get();
 
-        @Override
+            @Override
         protected void onPreExecute() {
             Log.d(Tag, "PRE PRE PRE MESSEAGE");
             super.onPreExecute();
