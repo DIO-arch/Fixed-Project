@@ -260,6 +260,6 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) { }
 
     public void IdCheck(View view){
-        Toast.makeText(DataSelector.this, "user's id" +_id, Toast.LENGTH_LONG).show();
+        Toast.makeText(DataSelector.this, "user's id: " + _id, Toast.LENGTH_LONG).show();
     }
 }

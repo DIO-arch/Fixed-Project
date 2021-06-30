@@ -1,10 +1,13 @@
 package com.example.fixedproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +38,30 @@ public class MeetingsList extends AppCompatActivity {
 
             MeetingsAdapter ma = new MeetingsAdapter(this, R.layout.meetings, aryMeetings);
             meetings_listview.setAdapter(ma);
+
+            meetings_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    AlertDialog.Builder adb = new AlertDialog.Builder(MeetingsList.this);
+                    adb.setTitle("Choose a command to apply on " + 0 + " meeting"); //might change 0 to meeting title
+                    adb.setMessage("Do you want to delete or update this meeting");
+
+                    int removePos = position; //maybe change pos to final
+
+                    adb.setPositiveButton("Update Meeting", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    i = new Intent(MeetingsList.this, Update_Meeting.class);
+
+                                    i.putExtra("_id",getIntent().getExtras().getInt("_id"));
+                                    i.putExtra("meeting_id", position);
+                                    startActivity(i);
+                                }
+                            });
+
+                    adb.show();
+                }
+            });
         } else {
             Toast.makeText(MeetingsList.this, "This user has no meetings", Toast.LENGTH_LONG).show();
         }
@@ -57,7 +84,11 @@ public class MeetingsList extends AppCompatActivity {
     }
     public void DeleteMeetings(View view){
         if(db.checkIfUserHasMeetings(_id))
-            db.deleteAllUserMeetings(_id);
+            if (db.deleteAllUserMeetings(_id)) {
+                i = new Intent(this, MeetingsList.class);
+                i.putExtra("_id",getIntent().getExtras().getInt("_id"));
+                startActivity(i);
+            }
         else
             Toast.makeText(MeetingsList.this, "Sorry but the app can't delete meetings that don't exist", Toast.LENGTH_LONG).show();
     }

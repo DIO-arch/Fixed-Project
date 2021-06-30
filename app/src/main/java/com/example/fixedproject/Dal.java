@@ -42,6 +42,8 @@ public class Dal extends SQLiteAssetHelper { //for users
 
         return checkInsert(name, username, password);
     }
+    // checkInsert was intended to be used only by insert
+    // but inorder to not cause problems I am not changing the name due to time constraints
     public boolean checkInsert(String name, String username, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from users where name = '"+name+"' and username = '"+username+"'  and password ='"+password+"'", null);
@@ -105,12 +107,15 @@ public class Dal extends SQLiteAssetHelper { //for users
         if (db != null && db.isOpen())
             db.close();
     }
-    public void deleteUser(long _id) {
+    public Boolean deleteUser(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         DBHelper db2 = new DBHelper(this.context);
+        //Dal dal = new Dal(this.context);
         if(db2.checkIfUserHasMeetings(_id))
             db2.deleteAllUserMeetings(_id);
-        db.rawQuery("Delete From users where _id =" +_id, null);
+        Cursor cursor = db.rawQuery("Delete From users where _id =" +_id, null);
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return false;
+        return checkInsert(getName(_id), getUserName(_id), getPassword(_id));
     }
     public Boolean deleteUser(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -129,17 +134,21 @@ public class Dal extends SQLiteAssetHelper { //for users
         }
         return false;
     }
+    // due to merge the save fix was reversed still updates user details
+    // but always makes the unsuc toast created 3 versions of updates
     public Boolean updateUser(long _id, Users user) {
         SQLiteDatabase db = this.getWritableDatabase();
         Boolean b1 = updateName(_id, user.getName());
         Boolean b2 = updateUserName(_id, user.getUsername());
         Boolean b3 = updatePassword(_id, user.getPassword());
-        Boolean b4 = false; //b1 || b2 || b3
-        if (b1 == true)
+        Boolean b4 = false;
+        if (b1)
             b4 = true;
-        if (b2 == true)
+        if (b2)
             b4 = true;
-        if (b3 == true)
+        if (b3)
+            b4 = true;
+        if(checkInsert(user.getName(), user.getUsername(), user.getPassword()))
             b4 = true;
         return b4;
     }
@@ -165,5 +174,87 @@ public class Dal extends SQLiteAssetHelper { //for users
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from users",null);
         return cursor.getColumnNames();
+    }
+    public String updateName2(long _id, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Update users set name = '"+name+"' where _id =" +_id, null);
+        //cursor = db.rawQuery("Select name From users where _id ="  +_id, null);
+        if (cursor.moveToFirst() && cursor.getCount() > 0)
+            return cursor.getString(cursor.getColumnIndex("name"));
+        return null;
+    }
+    public String updateUserName2(long _id, String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Update users set username = '"+username+"' where _id =" +_id, null);
+        //cursor = db.rawQuery("Select name From users where _id ="  +_id, null);
+        if (cursor.moveToFirst() && cursor.getCount() > 0)
+            return cursor.getString(cursor.getColumnIndex("username"));
+        return null;
+    }
+    public String updatePassword2(long _id, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Update users set password = '"+password+"' where _id =" +_id, null);
+        //cursor = db.rawQuery("Select name From users where _id ="  +_id, null);
+        if (cursor.moveToFirst() && cursor.getCount() > 0)
+            return cursor.getString(cursor.getColumnIndex("password"));
+        return null;
+    }
+    public Boolean updateUser2(long _id, Users user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String b1 = updateName2(_id, user.getName());
+        String b2 = updateUserName2(_id, user.getUsername());
+        String b3 = updatePassword2(_id, user.getPassword());
+        Boolean b4 = false;
+        if (b1 == user.getName())
+            b4 = true;
+        if (b2 == user.getUsername())
+            b4 = true;
+        if (b3 == user.getPassword())
+            b4 = true;
+        return b4;
+    }
+    public Boolean updateUser3(long _id, Users user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String b1 = updateName2(_id, user.getName());
+        String b2 = updateUserName2(_id, user.getUsername());
+        String b3 = updatePassword2(_id, user.getPassword());
+        if (b1 == user.getName() || b2 == user.getUsername() || b3 == user.getPassword())
+            return true;
+        return false;
+    }
+    public Boolean updateName3(long _id, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.rawQuery("Update users set name = '"+name+"' where _id =" +_id, null);
+        Cursor cursor = db.rawQuery("Select name From users where _id ="  +_id, null);
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
+        return false;
+    }
+    public Boolean updateUserName3(long _id, String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.rawQuery("Update users set username = '"+username+"' where _id =" +_id, null);
+        Cursor cursor = db.rawQuery("Select name From users where _id ="  +_id, null);
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
+        return false;
+    }
+    public Boolean updatePassword3(long _id, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Update users set password = '"+password+"' where _id =" +_id, null);
+        cursor = db.rawQuery("Select name From users where _id ="  +_id, null);
+        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
+        return false;
+    }
+    public Boolean updateUser4(long _id, Users user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Boolean b1 = updateName3(_id, user.getName());
+        Boolean b2 = updateUserName3(_id, user.getUsername());
+        Boolean b3 = updatePassword3(_id, user.getPassword());
+        Boolean b4 = false;
+        if (b1)
+            b4 = true;
+        if (b2)
+            b4 = true;
+        if (b3)
+            b4 = true;
+        return b4;
     }
 }

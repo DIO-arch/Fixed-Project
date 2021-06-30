@@ -3,7 +3,6 @@ package com.example.fixedproject;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -150,13 +149,17 @@ public class DBHelper extends SQLiteAssetHelper {
         return sql.SelectType(type_id);
     }
 
-    public void deleteMeeting(long _id) {
+    public Boolean deleteMeeting(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("Delete From meetings where _id =" +_id, null);
+        Cursor cursor = db.rawQuery("Delete From meetings where _id =" +_id, null);
+        if(cursor.moveToFirst() && cursor.getCount() > 0) return false;
+        return checkByID(_id);
     }
-    public void deleteAllUserMeetings(long user_id){
+    public Boolean deleteAllUserMeetings(long user_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("Delete From meetings where user_id =" +user_id, null);
+        Cursor cursor = db.rawQuery("Delete From meetings where user_id =" +user_id, null);
+        if(cursor.moveToFirst() && cursor.getCount() > 0) return false;
+        return true;
     }
     public void deleteAllUserMeetings(String username){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -320,6 +323,13 @@ public class DBHelper extends SQLiteAssetHelper {
     public Boolean checkIfUserHasMeetings(long user_id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * From meetings where user_id ="  +user_id,null);
+        if (cursor.moveToFirst() && cursor.getCount() > 0) //changed order for testing
+            return true;
+        return false;
+    }
+    public Boolean checkByID(long _id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * From meetings where _id ="  +_id,null);
         if (cursor.moveToFirst() && cursor.getCount() > 0) //changed order for testing
             return true;
         return false;

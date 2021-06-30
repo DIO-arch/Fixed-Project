@@ -52,17 +52,25 @@ public class UserInfo extends Activity {
         startActivity(i);
     }
     public void DeleteUser(View view){
-        dal.deleteUser(dal.getUserName(_id));
+        dal.deleteUser(_id);
         i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
-    public void SaveUser(View view){
+    public void SaveUser(View view) {
         users.setName(infoname.getText().toString());
         users.setUsername(infouser.getText().toString());
         users.setPassword(infopass.getText().toString());
-        Boolean bool = dal.updateUser(_id, users);
-        if(bool) Toast.makeText(UserInfo.this, "Saved", Toast.LENGTH_LONG).show();
-        else Toast.makeText(UserInfo.this, "Unsuccessful Save",Toast.LENGTH_LONG).show();
+        if (dal.checkInsert(users.getName(), users.getUsername(), users.getPassword())) {
+            Toast.makeText(UserInfo.this, "No changes to the account were made", Toast.LENGTH_LONG).show();
+            Reset(view); //just incase
+        }
+        else {
+            Boolean bool = dal.updateUser(_id, users);
+            if (bool) Toast.makeText(UserInfo.this, "Saved", Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(UserInfo.this, "Unsuccessful Save", Toast.LENGTH_LONG).show();
+            }
+        }
     }
     public void Reset(View view){
         infoname.setText(dal.getName(_id));
@@ -74,4 +82,5 @@ public class UserInfo extends Activity {
         users.setUsername(infouser.getText().toString());
         users.setPassword(infopass.getText().toString());
     }
+
 }

@@ -249,4 +249,10 @@ public class Update_Meeting extends AppCompatActivity implements AdapterView.OnI
             return false; }
         return true;
     }
+    public void updateMeeting(View view){
+        Toast.makeText(Update_Meeting.this, "Canceled Update", Toast.LENGTH_LONG).show();
+        i = new Intent(this, MeetingsList.class);
+        i.putExtra("_id",getIntent().getExtras().getInt("_id"));
+        startActivity(i);
+    }
 }
