@@ -240,12 +240,16 @@ public class Update_Meeting extends AppCompatActivity implements AdapterView.OnI
                         String dateText = DateFormat.format("h:mm a", calendar1).toString();
 
                         if(v.getId()==R.id.start_time_btnU) {stimeTextView.setText(dateText);
-                            meetings.setShour(hour);
                             meetings.setSminute(minute);
+                            if (is24HourFormat)
+                                hour = hour + 12;
+                            meetings.setShour(hour);
                         }
                         else if(v.getId()==R.id.end_time_btnU) {etimeTextView.setText(dateText);
-                            meetings.setEhour(hour);
                             meetings.setEminute(minute);
+                            if (is24HourFormat)
+                                hour = hour + 12;
+                            meetings.setEhour(hour);
                         }
                     }
                 }, HOUR, MINUTE, is24HourFormat);
