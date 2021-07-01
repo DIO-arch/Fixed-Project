@@ -137,6 +137,9 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
         int MINUTE = calendar.get(java.util.Calendar.MINUTE);
         boolean is24HourFormat = DateFormat.is24HourFormat(this);
 
+
+        //Toast.makeText(this, "" +is24HourFormat, Toast.LENGTH_SHORT).show();
+
         TimePickerDialog timePickerDialog =
                 new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -148,12 +151,16 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
                 String dateText = DateFormat.format("h:mm a", calendar1).toString();
 
                 if(v.getId()==R.id.start_time_btn) {stimeTextView.setText(dateText);
-                meetings.setShour(hour);
-                meetings.setSminute(minute);
+                    meetings.setSminute(minute);
+                    if (is24HourFormat)
+                        hour = hour + 12;
+                    meetings.setShour(hour);
                 }
                 else if(v.getId()==R.id.end_time_btn) {etimeTextView.setText(dateText);
-                meetings.setEhour(hour);
-                meetings.setEminute(minute);
+                    meetings.setEminute(minute);
+                    if (is24HourFormat)
+                        hour = hour + 12;
+                    meetings.setEhour(hour);
                 }
             }
         }, HOUR, MINUTE, is24HourFormat);
