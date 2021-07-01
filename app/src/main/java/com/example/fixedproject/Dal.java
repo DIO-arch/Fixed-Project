@@ -134,8 +134,7 @@ public class Dal extends SQLiteAssetHelper { //for users
         }
         return false;
     }
-    // due to merge the save fix was reversed still updates user details
-    // but always makes the unsuc toast created 3 versions of updates
+
     public Boolean updateUser(long _id, Users user) {
         SQLiteDatabase db = this.getWritableDatabase();
         Boolean b1 = updateName(_id, user.getName());
@@ -160,8 +159,11 @@ public class Dal extends SQLiteAssetHelper { //for users
     }
     public Boolean updateUserName(long _id, String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Update users set username = '"+username+"' where _id =" +_id, null);
-        if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
+        if (!checkUsernames(username)) {
+            Cursor cursor = db.rawQuery("Update users set username = '" + username + "' where _id =" + _id, null);
+            if (cursor.getCount() > 0 && cursor.moveToFirst()) return true;
+            return false;
+        }
         return false;
     }
     public Boolean updatePassword(long _id, String password){

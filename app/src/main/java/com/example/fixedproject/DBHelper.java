@@ -157,6 +157,7 @@ public class DBHelper extends SQLiteAssetHelper {
     }
     public Boolean deleteAllUserMeetings(long user_id){
         SQLiteDatabase db = this.getWritableDatabase();
+        String s = "";
         Cursor cursor = db.rawQuery("Delete From meetings where user_id =" +user_id, null);
         if(cursor.moveToFirst() && cursor.getCount() > 0) return false;
         return true;
