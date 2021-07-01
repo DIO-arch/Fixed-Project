@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
 public class MainActivity extends AppCompatActivity {
     Button test, print;
+    ImageView imageView;
     private static final String Tag = "MainActivity";
 
         @Override
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         test = findViewById(R.id.async_task_test);
+        imageView = findViewById(R.id.imageView);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,25 +33,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private class LongRunningTask extends AsyncTask<Void, Void, Void> {
-        private WeakReference<MainActivity> activityWeakReference;
-        MainActivity activity = activityWeakReference.get();
 
             @Override
         protected void onPreExecute() {
             Log.d(Tag, "PRE PRE PRE MESSEAGE");
+            imageView.setVisibility(View.VISIBLE);
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             Log.d(Tag, "doing: TESTING LET'S SEE IF IT WORKS PLEASE WORK WRITING THIS LONG SO I FIND IT");
-            //Toast.makeText(MainActivity.this, "Failed to Login", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Failed to Login", Toast.LENGTH_SHORT).show();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void unused) {
-            Log.d(Tag, "POST EXECURE CLARITY"); 
+            Log.d(Tag, "POST EXECURE CLARITY");
+            imageView.setVisibility(View.INVISIBLE);
             super.onPostExecute(unused);
         }
     }
