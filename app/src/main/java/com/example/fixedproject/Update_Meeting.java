@@ -85,7 +85,10 @@ public class Update_Meeting extends AppCompatActivity implements AdapterView.OnI
         meetings.setEday(db.GetEDay(meeting_id));
 
         //starts
-        //sdateButton.setText(meetings.get);
+        stimeTextView.setText(meetings.getShour() + meetings.getSminute());
+
+
+
 
         Spinner spinner = findViewById(R.id.spinnerU);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

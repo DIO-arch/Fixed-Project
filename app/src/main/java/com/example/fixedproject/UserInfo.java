@@ -52,9 +52,14 @@ public class UserInfo extends Activity {
         startActivity(i);
     }
     public void DeleteUser(View view){
-        dal.deleteUser(_id);
-        i = new Intent(this, MainActivity.class);
-        startActivity(i);
+        if (_id != 1){
+            if(!dal.deleteUser(_id)){
+                i = new Intent(this, MainActivity.class);
+                startActivity(i);
+            }
+            else Toast.makeText(UserInfo.this, "No changes to the account were made", Toast.LENGTH_LONG).show();
+        }
+        else Toast.makeText(UserInfo.this, "This account can't be deleted", Toast.LENGTH_LONG).show();
     }
     public void SaveUser(View view) {
         users.setName(infoname.getText().toString());

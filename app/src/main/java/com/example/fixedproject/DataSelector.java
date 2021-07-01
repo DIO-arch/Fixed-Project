@@ -137,8 +137,8 @@ public class DataSelector extends AppCompatActivity implements AdapterView.OnIte
         int MINUTE = calendar.get(java.util.Calendar.MINUTE);
         boolean is24HourFormat = DateFormat.is24HourFormat(this);
 
-
         //Toast.makeText(this, "" +is24HourFormat, Toast.LENGTH_SHORT).show();
+        //am = false pm = true
 
         TimePickerDialog timePickerDialog =
                 new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {

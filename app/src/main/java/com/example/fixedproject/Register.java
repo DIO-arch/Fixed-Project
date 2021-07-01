@@ -69,9 +69,14 @@ public class Register extends AppCompatActivity {
         else if (view.getId()==R.id.RegToStart)
             i = new Intent(this, MainActivity.class);
         startActivity(i);
+    }
+    public void Reset(View view){
+        name.setText("");
+        User.setText("");
+        Pass.setText("");
 
-
-
-
+        users.setName("");
+        users.setUsername("");
+        users.setPassword("");
     }
 }

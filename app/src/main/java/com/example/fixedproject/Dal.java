@@ -110,6 +110,8 @@ public class Dal extends SQLiteAssetHelper { //for users
     public Boolean deleteUser(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         DBHelper db2 = new DBHelper(this.context);
+        if (_id == 1)
+            return true;
         //Dal dal = new Dal(this.context);
         if(db2.checkIfUserHasMeetings(_id))
             db2.deleteAllUserMeetings(_id);

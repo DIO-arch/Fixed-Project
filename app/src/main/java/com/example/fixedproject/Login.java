@@ -74,4 +74,11 @@ public class Login extends AppCompatActivity {
             i = new Intent(this, ClocksPage.class);
         startActivity(i);
     }
+    public void Reset(View view){
+        user.setText("");
+        pass.setText("");
+
+        users.setUsername("");
+        users.setPassword("");
+    }
 }

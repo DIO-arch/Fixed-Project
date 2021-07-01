@@ -32,11 +32,17 @@ public class ClocksPage extends AppCompatActivity {
             i = new Intent(this, Timer.class);
         else if (view.getId()==R.id.ClocksToDisplay)
             i = new Intent(this, MeetingsList.class);
-        else if(view.getId()==R.id.log_off)
-            i = new Intent(this, MainActivity.class);
         else
             i = new Intent(this, MainActivity.class);
         i.putExtra("_id",getIntent().getExtras().getInt("_id"));
+        startActivity(i);
+    }
+    public void logOff(View view){
+        Intent i;
+        if(view.getId()==R.id.log_off)
+            i = new Intent(this, MainActivity.class);
+        else
+            i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }
